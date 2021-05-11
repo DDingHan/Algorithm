@@ -1,0 +1,100 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Node {
+public:
+	string key;
+	int value;
+	bool finish; //완료자 명단 확인
+	Node* next;
+	Node(string k, int v) {
+		finish = false;
+		this->key = k;
+		this->value = v;
+		this->next = NULL;
+	}
+};
+class HashLinkedlist {
+public:
+	Node* head;
+	Node* tail;
+	HashLinkedlist() {
+		head = tail = NULL;
+	}
+	bool empty() {
+		return (head == NULL) & (tail == NULL);
+	}
+	void addValue(string key, int value) {
+		Node* newnode = new Node(key, value);
+		if (empty()) {
+			head = tail = newnode;
+		}
+		else {
+			tail->next = newnode;
+			tail = newnode;
+		}
+	}
+};
+class HashMap {
+public:
+	vector<HashLinkedlist*> container;
+	int storage_size;
+	HashMap(int s) {
+		this->storage_size = s;
+		for (int i = 0; i < storage_size; i++) {			//저장소 동적 할당
+			HashLinkedlist* newlist = new HashLinkedlist();
+			this->container.push_back(newlist);
+		}
+	}
+	int hash(string key) {
+		int hashvalue = -1;
+		int tmp = 0;
+
+		for (char c : key) {
+			tmp += int(c);			//해쉬 함수 : 문자열의 각각의 문자을 아스키 코드로 변환후 모두 더함.
+		}
+		hashvalue = tmp % storage_size;				//그 다음 저장소의 갯수로 나눔.
+
+		return hashvalue;
+	}
+	Node* findNodeByKey(string key, Node* container_cursor) {
+		Node* now_cursor = container_cursor;
+		while (now_cursor != NULL) {
+			if (now_cursor->key == key)
+				if (now_cursor->finish) {	//동명이인 찾기 위한 코드, 만약 같은 이름이 나왓는데 완주를 햇으면 완주 안한 다른 사람을 찾음
+					now_cursor = now_cursor->next;
+				}
+				else {
+					now_cursor->finish = true;
+					return now_cursor;
+				}
+			else
+				now_cursor = now_cursor->next;
+		}
+		return now_cursor;			//키 값이 없을 경우 NULL를 리턴
+	}
+	void putValue(string key) {
+		int hashcode = this->hash(key);		//key값을 해쉬함수를 이용하여 해쉬값으로 변환
+		this->container[hashcode]->addValue(key, hashcode);
+	}	
+};
+
+string solution(vector<string> participant, vector<string> completion) {
+    HashMap* hashmap = new HashMap(completion.size()); //완료자 사람 만큼 저장소 용량 확보
+    string answer = "";
+	for (int i = 0; i < completion.size(); i++) {
+		hashmap->putValue(completion[i]);
+	}
+	for (int i = 0; i < participant.size(); i++) {
+		int hashcode = hashmap->hash(participant[i]);		//key값을 해쉬함수를 이용하여 해쉬값으로 변환
+		Node* cursor = hashmap->container[hashcode]->head;
+		cursor = hashmap->findNodeByKey(participant[i], cursor);
+		if (cursor == NULL) {
+			answer = participant[i];
+			break;
+		}
+	}
+    return answer;
+}
