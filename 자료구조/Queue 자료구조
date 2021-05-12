@@ -1,0 +1,104 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+class Node {
+private:
+	Node* next;
+	int data;
+public:
+	void setdata(int _data);
+	int getdata();
+	void setnext(Node* _next);
+	Node* getnext();
+
+	Node(int n) {
+		data = n;
+		next = NULL;
+	}
+};
+
+void Node::setdata(int _data) { data = _data; }
+int Node::getdata() { return data; }
+void Node::setnext(Node* _next) { next = _next; }
+Node* Node::getnext() { return next; }
+
+class Que {
+private:
+	Node* head;
+	Node* tail;
+	int _size = 0;
+public:
+	Que() {
+		head = tail = NULL;
+	}
+	void empty() {
+		if (head == NULL) { cout << "1" << endl; }
+		else { cout << "0" << endl; }
+	}
+
+	void push(int n) { //앞에 추가
+		Node* newnode = new Node(n);
+		if (head == NULL) {
+			head = tail = newnode;
+			_size = 1;
+		}
+		else {
+			Node* temp = head;
+			while (true)
+			{
+				if (temp == tail)
+				{
+					temp->setnext(newnode);
+					tail = newnode;
+					break;
+				}
+				else
+				{
+					temp = temp->getnext();
+				}
+			}
+			_size++;
+		}
+	}
+
+	void pop() {
+		if (head == NULL) { cout << "-1" << endl; }
+		else {
+			Node* testnode = head;
+			cout << testnode->getdata() << endl;
+			head = testnode->getnext();
+			delete testnode;
+			_size--;
+		}
+	}
+
+	void size() {
+		cout << this->_size << endl;
+	}
+	void front()
+	{
+		if (head == NULL) cout << "-1" << endl;
+		else cout << this->head->getdata() << endl;
+	}
+	void back()
+	{
+		if (head == NULL) cout << "-1" << endl;
+		else cout << this->tail->getdata() << endl;
+	}
+
+	void Print() {
+		Node* testnode = head;
+		while (true) {
+			if (testnode->getnext() == NULL) {//마지막일때
+				cout << testnode->getdata() << endl;
+				break;
+			}
+			else {//마지막 아닐때
+				cout << testnode->getdata() << ' ';
+				testnode = testnode->getnext();
+			}
+		}
+	}
+};
