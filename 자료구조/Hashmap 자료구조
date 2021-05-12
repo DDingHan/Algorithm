@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Node {
+public:
+	string key;
+	int value;
+	Node* next;
+	Node(string k, int v) {
+		finish = false;
+		this->key = k;
+		this->value = v;
+		this->next = NULL;
+	}
+};
+class HashLinkedlist {
+public:
+	Node* head;
+	Node* tail;
+	HashLinkedlist() {
+		head = tail = NULL;
+	}
+	bool empty() {
+		return (head == NULL) & (tail == NULL);
+	}
+	void addValue(string key, int value) {
+		Node* newnode = new Node(key, value);
+		if (empty()) {
+			head = tail = newnode;
+		}
+		else {
+			tail->next = newnode;
+			tail = newnode;
+		}
+	}
+};
+class HashMap {
+public:
+	vector<HashLinkedlist*> container;
+	int storage_size;
+	HashMap(int s) {
+		this->storage_size = s;
+		for (int i = 0; i < storage_size; i++) {			//저장소 동적 할당
+			HashLinkedlist* newlist = new HashLinkedlist();
+			this->container.push_back(newlist);
+		}
+	}
+	int hash(string key) {
+		int hashvalue = -1;
+		int tmp = 0;
+
+		for (char c : key) {
+			tmp += (int)c;			//해쉬 함수 : 문자열의 각각의 문자을 아스키 코드로 변환후 모두 더함.
+		}
+		hashvalue = tmp % storage_size;				//그 다음 저장소의 갯수로 나눔.
+
+		return hashvalue;
+	}
+	Node* findNodeByKey(string key, Node* container_cursor) {
+		Node* now_cursor = container_cursor;
+		while (now_cursor != NULL) {
+			if (now_cursor->key == key)
+				return now_cursor;
+			else
+				now_cursor = now_cursor->next;
+		}
+		return now_cursor;			//키 값이 없을 경우 NULL를 리턴
+	}
+	void putValue(string key) {
+		int hashcode = this->hash(key);		//key값을 해쉬함수를 이용하여 해쉬값으로 변환
+		Node* cursor = this->container[hashcode]->head;
+		cursor = this->findNodeByKey(key, cursor);
+		if (cursor == NULL) {				//key값에 해당되는 value 가 없을 경우 새로운 노드 추가해서 이어줌
+			this->container[hashcode]->addValue(key, hashcode);
+		}
+		else {								//key값에 해당되는 value가 있을 경우(동명이인)의 경우 
+			cursor->value = hashcode;
+		}
+	}
+	void getValue(string key) {
+		int value;
+		int hashcode = this->hash(key);
+		Node* cursor = this->container[hashcode]->head;
+		cursor = this->findNodeByKey(key, cursor);
+		if (cursor == NULL) {
+			cout << "키 값을 찾을 수 없습니다." << endl;
+			return;
+		}
+		else {
+			cout << cursor->key << " " << cursor->value << endl;
+		}
+	}
+	void removeValue(string key) {
+		int hashcode = this->hash(key);
+		Node* head = this->container[hashcode]->head;
+		Node* tail = this->container[hashcode]->tail;
+		Node* cursor = this->findNodeByKey(key, head);
+		if (cursor == NULL) {
+			cout << "키를 찾을 수 없습니다." << endl;
+		}
+		else if (cursor == head) {
+			this->container[hashcode]->head = head->next;
+			delete cursor;
+		}
+		else {
+			while (head->next != cursor) {
+				head = head->next;
+			}
+			if (cursor == tail) {
+				head->next = NULL;
+				this->container[hashcode]->tail = head;
+			}
+			else {
+				head->next = cursor->next;
+			}
+			delete cursor;
+		}
+	}
+};
