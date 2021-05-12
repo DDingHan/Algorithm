@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdio>
+#include <queue>
+#include <string>
+using namespace std;
+
+
+int main() {
+	int testcase,num;
+	string test;
+	scanf("%d",&testcase);
+	queue <int> q;
+	for (int i = 0; i < testcase; i++) {
+		cin >> test;
+		if (test == "push") {
+			scanf("%d\n", &num);
+			q.push(num);
+		}
+		else if (test == "pop") {
+			if (q.empty())	printf("-1\n");
+			else {
+				printf("%d\n", q.front());
+				q.pop();
+			}
+		}
+		else if (test == "size") {
+			printf("%d\n", q.size());
+		}
+		else if (test == "empty") {
+			printf("%d\n", (q.empty() ? 1 : 0));
+		}
+		else if (test == "front") {
+			printf("%d\n", (q.empty() ? -1 : q.front()));
+		}
+		else if (test == "back") {
+			printf("%d\n", (q.empty() ? -1 : q.back()));
+		}
+	}
+}
