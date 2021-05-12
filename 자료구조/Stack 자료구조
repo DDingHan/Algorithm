@@ -1,0 +1,108 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+class Node {
+private:
+	Node* next;
+	int data;
+public:
+	Node(int n) {
+		data = n;
+		next = NULL;
+	}
+	void setdata(int _data) {
+		data = _data;
+	}
+	int getdata() {
+		return data;
+	}
+	void setnext(Node* _next) {
+		next = _next;
+	}
+	Node* getnext() {
+		return next;
+	}
+};
+
+class Stack {
+private:
+	Node* head;
+	Node* tail;
+	int s = 0;
+public:
+	Stack() {
+		head = tail = NULL;
+	}
+	/*
+	void addBack(int n) {//뒤에 추가
+		Node* newnode = new Node(n); //n을 가진 node를 생성
+		if (head == NULL) { //비어있을때
+			head = tail = newnode;
+		}
+		else {
+			while (true) {
+				Node* testnode = head;
+				if (testnode->getnext() == NULL) { //뒤가 비어있다면 (마지막 노드라면)
+					testnode->setnext(newnode); //마지막 노드 뒤에 newnode 삽입
+					break;
+				}
+				else { //마지막이 아닐때
+					testnode = testnode->getnext(); //다음 노드로 넘어감
+				}
+			}
+		}
+	}
+	*/
+	void push(int n) {
+		Node* newnode = new Node(n);
+		if (head == NULL) {
+			head = tail = newnode;
+			s++;
+		}
+		else {
+			newnode->setnext(head);
+			head = newnode;
+			s++;
+		}
+	}
+	int  pop() {
+		if (head == NULL) {
+			return -1;
+		}
+		else {
+			Node* temp = head;
+			int tempnumber = temp->getdata();
+			head = head->getnext();
+			delete temp;
+			s--;
+			return tempnumber;
+		}
+	}
+	int size() {
+		return s;
+	}
+	int empty() {
+		if (head == NULL) return 1;
+		else return 0;
+	}
+	int top() {
+		if (head == NULL) return -1;
+		else return head->getdata();
+	}
+	/*
+	void Print() {
+		Node* testnode = head;
+		while (true) {
+			if (testnode->getnext() == NULL) {//마지막일때
+				cout << testnode->getdata() << endl;
+				break;
+			}
+			else {//마지막 아닐때
+				cout << testnode->getdata() << ' ';
+				testnode = testnode->getnext();
+			}
+		}
+	} */
+};
