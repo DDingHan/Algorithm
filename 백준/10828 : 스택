@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cstdio>
+#include <stack>
+#include <string>
+using namespace std;
+
+
+int main() {
+	int testcase,num;
+	string test;
+	scanf("%d",&testcase);
+	stack <int> s;
+	for (int i = 0; i < testcase; i++) {
+		cin >> test;
+		if (test == "push") {
+			scanf("%d\n", &num);
+			s.push(num);
+		}
+		else if (test == "pop") {
+			if (s.empty())	printf("-1\n");
+			else {
+				printf("%d\n", s.top());
+				s.pop();
+			}
+		}
+		else if (test == "size") {
+			printf("%d\n", s.size());
+		}
+		else if (test == "empty") {
+			printf("%d\n", (s.empty() ? 1 : 0));
+		}
+		else if (test == "top") {
+			printf("%d\n", (s.empty() ? -1 : s.top()));
+		}
+	}
+}
