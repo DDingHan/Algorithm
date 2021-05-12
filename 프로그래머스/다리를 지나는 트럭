@@ -1,0 +1,34 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+	queue<int> trucklist;
+	int time = 0, index = 0;
+	while (true) {
+		if (index == truck_weights.size()) {    //대기 트럭이 없는경우 종료
+			time += bridge_length;              //종료할때는 마지막 트럭이 걸리는 시간 더해주기
+			break;
+		}
+
+		time++;
+
+		if (trucklist.size() == bridge_length) {//1초에 1칸씩 움직이니까 큐의 사이즈가 다리 길이라면
+			weight += trucklist.front();        //처음 트럭은 끝까지 갔으므로 무게를 다시 더해주고
+			trucklist.pop();                    //트럭 제거
+		}
+
+		int front = truck_weights[index];
+
+		if (weight >= front) {                  //다리위의 무게와 대기 트럭중 첫번째 트럭과 비교
+			trucklist.push(front);              //건널수 있다면 큐에 삽입
+			weight -= front;                    //트럭 무게 만큼 다리가 버틸수 있는 무게 갱신
+			index++;                            //트럭 하나를 넣엇으니 대기 트럭 인덱스 1증가
+		}
+		else {
+			trucklist.push(0);                  //만약 못 들어간다면 트럭이 1초마다 움직이기 위해
+		}		                                //무게가 0인 트럭추가
+	}
+    return time;
+}
