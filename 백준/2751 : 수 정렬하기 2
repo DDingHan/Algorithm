@@ -1,0 +1,14 @@
+#input 보다 빠른 sys.stdin.readline을 사용하기 위해 sys 사용
+import sys
+
+a=int(sys.stdin.readline())
+b=[]
+for _ in range(a):
+    b.append(int(sys.stdin.readline()))
+    
+#파이썬에서 기본적으로 제공하는 sort() <- 퀵 정렬 사용
+b.sort()
+
+for i in b:
+	print(i)
+    
