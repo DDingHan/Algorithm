@@ -1,0 +1,19 @@
+import sys
+
+n=int(sys.stdin.readline())
+
+#단어를 중복없이 단어와 단어 길이를 집합에 저장
+b=set()
+for _ in range(n):
+	a=sys.stdin.readline()
+	b.add((a[:-1],len(a)))
+    
+#순서 정렬을 위해 리스트화
+c=list(b)
+
+#단어의 길이로 오름차순, 길이가 같을 경우는 문자를 사전순으로 
+c.sort(key=lambda x:(x[1],x[0]))
+
+#단어만 출력
+for s in c:
+	print(s[0])
