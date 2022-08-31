@@ -1,0 +1,14 @@
+import sys
+
+n=int(sys.stdin.readline())
+#시간복잡도를 줄이기 위해 set 사용
+a=set(map(int,sys.stdin.readline().split()))
+m=int(sys.stdin.readline())
+#순서가 필요하므로 list 사용
+b=list(map(int,sys.stdin.readline().split()))
+
+for num in b:
+	if num in a:
+		print(1)
+	else:
+		print(0)
