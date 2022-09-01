@@ -1,0 +1,20 @@
+t=int(input())
+for i in range(t):
+	a=input()
+	flag=True
+	check=0
+    #문자열 중에 "("면 +1 ")" -1
+	for j in a:
+		if j=='(':
+			check+=1
+		elif j==')':
+			check-=1
+            #음수면 열기 전에 닫는 괄호가 나왔으니 vps 성립 x
+			if check<0:
+				flag=False
+				break
+    #한번이라도 열기 전에 닫는 괄호가 나오거나 갯수가 안맞으면 괄호 쌍이 안맞으므로 x
+	if flag==False or check>0:
+		print("NO")
+	else:
+		print("YES")
