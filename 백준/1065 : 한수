@@ -1,0 +1,19 @@
+N=int(input())
+ans=0
+for i in range(1,N+1):
+	a=list(str(i))
+    #1자리 2자리 숫자는 자동으로 등차수열 만족
+	if len(a)<=2:
+		ans+=1
+	else:
+        #3자리 이상부터 첫 등차를 구한 다음 다음 등차와 다르면 break
+		d=int(a[0])-int(a[1])
+		for idx in range(1,len(a)-1):
+			new_d=int(a[idx])-int(a[idx+1])
+			if d!=new_d:
+				break
+        #끝까지 같은 등차를 유지하면 ans+1
+		else:
+			ans+=1
+print(ans)
+	
