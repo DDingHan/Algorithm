@@ -1,0 +1,11 @@
+import sys
+
+n=int(input())
+#x,y 2가지 정렬 방법을 사용하기 위해 tuple 형식 사용
+#1<=n<=100000 입력 시간을 줄이기 위해 sys 사용
+a=[tuple(map(int,sys.stdin.readline().split())) for _ in range(n)]
+#정렬 기준을 먼저 x 오름차순, x가 같을 경우 y 오름차순
+a.sort(key=lambda x:(x[0],x[1]))
+#튜플 내 원소 출력
+for x,y in a:
+	print(x,y)
