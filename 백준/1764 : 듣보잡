@@ -1,0 +1,22 @@
+import sys
+
+n,m=map(int,input().split())
+#500000 case로 입력 시간을 줄이기 위해 sys 사용
+#검색 연산 시간복잡도를 줄이기 위해 set 사용
+a={sys.stdin.readline() for _ in range(n)}
+b={sys.stdin.readline() for _ in range(m)}
+ans=0
+
+#정렬을 위한 리스트 사용
+c=[]
+for i in a:
+	if i in b:
+		c.append(i)
+		ans+=1
+#문자순으로 정렬
+c.sort()
+
+print(ans)
+for i in c:
+	print(i,end="")
+		
