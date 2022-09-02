@@ -1,0 +1,12 @@
+n,k=map(int,input().split())
+a=[int(input()) for _ in range(n)]
+cnt=0
+#큰 금액부터 해서 최대로 채우기
+for i in range(len(a)-1,-1,-1):
+	if k//a[i]>0:
+		cnt+=k//a[i]
+		k%=a[i]
+	#중간에 0원이 되면 더이상 할 필요 x
+	if k==0:
+		break
+print(cnt)
