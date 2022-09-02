@@ -1,0 +1,16 @@
+import math
+
+def isPrime(n):
+	if n==1:
+		return False
+    #시간을 줄이기 위해 제곱근 까지만 확인
+	for i in range(2,int(math.sqrt(n)+1)):
+		if n%i==0:
+			return False
+	else:
+		return True
+
+m,n=map(int,input().split())
+for i in range(m,n+1):
+	if isPrime(i):
+		print(i)
