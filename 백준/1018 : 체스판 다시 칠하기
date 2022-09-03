@@ -1,0 +1,35 @@
+#왼쪽 위가 흰색인 체스판
+W=['WBWBWBWB','BWBWBWBW','WBWBWBWB','BWBWBWBW','WBWBWBWB','BWBWBWBW','WBWBWBWB','BWBWBWBW']
+#왼쪽 위가 검정색인 체스판
+B=['BWBWBWBW','WBWBWBWB','BWBWBWBW','WBWBWBWB','BWBWBWBW','WBWBWBWB','BWBWBWBW','WBWBWBWB']
+n,m=map(int,input().split())
+#주어진 체스판
+board=[input() for _ in range(n)]
+
+#흰색 체스판과 비교해서 다른 판 갯수
+def check_W(i,j):
+	cnt=0
+	for r in range(8):
+		for c in range(8):
+			if W[r][c]!=board[i+r][j+c]:
+				cnt+=1
+	return cnt
+  
+#검은색 체스판과 비교해서 다른 판 갯수
+def check_B(i,j):
+	cnt=0
+	for r in range(8):
+		for c in range(8):
+			if B[r][c]!=board[i+r][j+c]:
+				cnt+=1
+	return cnt	
+	
+ans=[]
+for i in range(n-7):
+	for j in range(m-7):
+    #8칸씩 흰색과 검은색 체스판과 비교해서 더 적은 갯수를 리스트에 저장
+		ans.append(min((check_W(i,j),check_B(i,j))))
+    
+#모든 경우에서 가장 적게 드는 숫자가 답
+print(min(ans))
+		
