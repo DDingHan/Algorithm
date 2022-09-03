@@ -1,0 +1,21 @@
+import sys
+
+com=int(input())
+connect=int(input())
+#각 컴퓨터 번호에 연결된 컴퓨터를 리스트 형식으로 저장 1_index
+a=[[] for i in range(com+1)]
+for i in range(connect):
+	b,c=map(int,sys.stdin.readline().split())
+    #양쪽 컴퓨터에 연결
+	a[b].append(c)
+	a[c].append(b)
+    
+ans=[1]
+idx=0
+#1번 컴퓨터 기준으로 연결된 컴퓨터를 BFS를 사용해서 중복없이 계속 추가
+while idx<len(ans):
+	for i in a[ans[idx]]:
+		if i not in ans:
+			ans.append(i)
+	idx+=1
+print(len(ans)-1)
