@@ -1,0 +1,28 @@
+import sys
+n=int(input())
+arr=[int(sys.stdin.readline()) for _ in range(n)]
+#i번재 까지 계단의 가중치의 최대합을 저장 하기 위해 dp사용
+dp=[]
+#1번째 계단 (0->1)
+dp.append(arr[0])
+if n==1:
+    print(dp.pop())
+else:
+    #2번째 계단 (0->2 or 0->1->2) 중의 최대값
+    dp.append(max(arr[0]+arr[1],arr[1]))
+    if n==2:
+        print(dp.pop())
+    else:
+        #3번째 계단 (1->3 or 2->3) 중의 최대값
+        dp.append(max(arr[0]+arr[2],arr[1]+arr[2]))
+        if n==3:
+            print(dp.pop())
+        else:
+            #4~n번째 계단 까지의 최대값
+            for i in range(3,n):
+	            #1 : i-2 -> i로 올 경우 이전 계단 상관 x
+	            #2 : i-1 -> i로 올경우 이전 계단은 무조건 i-3->i-1->i로 와야함
+	            dp.append(max(dp[i-2]+arr[i],dp[i-3]+arr[i-1]+arr[i]))
+            #마지막 계단 밟았을 때 최대값 출력
+            print(dp.pop())
+	
