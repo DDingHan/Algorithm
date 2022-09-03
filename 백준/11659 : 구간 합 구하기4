@@ -1,0 +1,14 @@
+import sys
+n,m=map(int,input().split())
+a=list(map(int,input().split()))
+
+#빠른 구간 합을 구하기 위해 접두사 합 사용
+p=[0]
+s=0
+for i in a:
+	s+=i
+	p.append(s)
+
+for _ in range(m):
+	i,j=map(int,sys.stdin.readline().split())
+	print(p[j]-p[i-1])
