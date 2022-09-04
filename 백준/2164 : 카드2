@@ -1,0 +1,13 @@
+#double-ended queue 사용 pop.append 연산이 O(1)이라서
+from collections import deque
+a=deque([i for i in range(1,int(input())+1)])
+remove=True
+#제거하고 뒤로 보내는 과정을 1개가 남을때 까지 반복
+while len(a)!=1:
+	if remove:
+		a.popleft()
+		remove=False
+	else:
+		a.append(a.popleft())
+		remove=True
+print(a.pop())
