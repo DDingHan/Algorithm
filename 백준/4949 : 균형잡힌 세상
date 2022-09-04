@@ -1,0 +1,24 @@
+s=input()
+while s!=".":
+	a=[]
+	temp=True
+	for i in s:
+		if i=="(" or i=="[":
+			a.append(i)
+		elif i==")":
+			if len(a)==0 or a[-1]=="[":
+				temp=False
+				break
+			elif a[-1]=="(":
+				a.pop()
+		elif i=="]":
+			if len(a)==0 or a[-1]=="(":
+				temp=False
+				break
+			elif a[-1]=="[":
+				a.pop()
+	if temp and len(a)==0:
+		print("yes")
+	else:
+		print("no")
+	s=input()
