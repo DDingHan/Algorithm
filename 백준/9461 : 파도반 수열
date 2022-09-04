@@ -1,0 +1,11 @@
+t=int(input())
+for _ in range(t):
+	a=[1,1,1,2,2]
+	n=int(input())
+	if n<5:
+		print(a[n-1])
+	else:
+        #dp : n>=5 부터 d[i]=d[i-1]+d[i-5] 성립
+		for i in range(5,n):
+			a.append(a[i-1]+a[i-5])
+		print(a[n-1])
