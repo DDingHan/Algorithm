@@ -1,0 +1,29 @@
+#재귀 함수 깊이 제한을 늘리기 위해 사용
+import sys
+sys.setrecursionlimit(10**6)
+#해당 좌표를 기준으로 이웃된 모든 배추를 재귀함수를 통해 제거
+def delete(x,y):
+	global a,m,n
+	a[x][y]=0
+	X=[x-1,x,x+1,x]
+	Y=[y,y+1,y,y-1]
+	for i in range(4):
+		if 0<=X[i]<m and 0<=Y[i]<n and a[X[i]][Y[i]]:
+			delete(X[i],Y[i])
+		
+t=int(input())
+for _ in range(t):
+	m,n,k=map(int,input().split())
+	a=[[0]*n for _ in range(m)]
+	for _ in range(k):
+		x,y=map(int,input().split())
+		a[x][y]=1
+	cnt=0
+	for x in range(m):
+		for y in range(n):
+			if a[x][y]==1:
+                #이웃된 배추 그룹을 하나 지울 때 마다 지렁이 +1
+				delete(x,y)
+				cnt+=1
+	print(cnt)
+			
