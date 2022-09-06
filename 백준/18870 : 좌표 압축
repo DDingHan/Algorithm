@@ -1,0 +1,8 @@
+n=int(input())
+Xi=list(map(int,input().split()))
+#서로 다른 좌표 이므로 중복 제거 하기 위해 set 사용후 다시 list화
+Xj=sorted(list(set(Xi)))
+#index 의 시간 복잡도를 줄이기 위해 dic 사용
+dic={Xj[i] : i for i in range(len(Xj))}
+for i in Xi:
+	print(dic[i],end=" ")
