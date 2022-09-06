@@ -1,0 +1,18 @@
+import sys
+n,m=map(int,sys.stdin.readline().split())
+tree=list(map(int,sys.stdin.readline().split()))
+left,right=1,max(tree)
+while left<=right:
+	mid=(left+right)//2
+	meter=0
+	for i in tree:
+		if i>mid:
+			meter+=i-mid
+        #시간 초과 방지 이미 필요한 나무를 얻었으면 중단
+		if meter>=m:
+			break
+	if meter>=m:
+		left=mid+1
+	else:
+		right=mid-1
+print(right)
