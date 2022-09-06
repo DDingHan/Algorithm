@@ -1,0 +1,21 @@
+n=int(input())
+stack=[0]
+answer=[]
+last_num=1
+for _ in range(n):
+	a=int(input())
+	if stack[-1]!=a:
+        #작은 숫자가 먼저 나가려고 하면 스택 불가능
+		if stack[-1]>a:
+			print("NO")
+			break
+        #아니라면 그 숫자 전까지 전부 채우기
+		for i in range(last_num,a+1):
+			stack.append(i)
+			answer.append("+")
+		last_num=a+1
+	stack.pop()
+	answer.append("-")
+else:
+	for i in answer:
+		print(i)
