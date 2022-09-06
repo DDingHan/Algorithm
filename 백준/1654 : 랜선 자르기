@@ -1,0 +1,18 @@
+k,n=map(int,input().split())
+a=[int(input()) for _ in range(k)]
+right=max(a)
+left=1
+while left<=right: 
+	mid=(left+right)//2
+	#T T T T T F F F F 에서 T F 갈리는 지점을 찾기 위해
+	#이분 탐색 조건이 맞으면 왼쪽을 mid+1 틀리면 오른쪽을 mid-1로 설정
+	cnt=0
+	for i in a:
+		cnt+=i//mid
+	if cnt>=n:
+		left=mid+1
+	else:
+		right=mid-1
+#최대로 가능한 길이를 찾은 것이므로 left 출력
+print(right)
+
