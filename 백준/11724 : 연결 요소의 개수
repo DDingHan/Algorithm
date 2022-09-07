@@ -1,0 +1,24 @@
+import sys
+n,m=map(int,input().split())
+a=[[] for _ in range(n+1)]
+for _ in range(m):
+	u,v=map(int,sys.stdin.readline().split())
+	a[u].append(v)
+	a[v].append(u)
+t=[]
+cnt=0
+idx=0
+#모든 정점에 대해서 bfs를 통해 연결요소 확인
+#한 정점이 끝나면 다음 정점이 이전 연결요소에 안 들어가 있다면
+#새로운 연결 요소 시작
+for i in range(1,n+1):
+	if i not in t:
+		cnt+=1
+		t.append(i)
+		while idx<len(t):
+			for k in a[t[idx]]:
+				if k not in t:
+					t.append(k)
+			idx+=1
+print(cnt)	
+		
