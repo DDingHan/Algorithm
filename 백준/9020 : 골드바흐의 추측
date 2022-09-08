@@ -1,0 +1,23 @@
+import math,sys
+
+#소수 찾는 함수 
+def isPrime(num):
+	for i in range(2,int(math.sqrt(num)+1)):
+		if num%i==0:
+			return False
+	else:
+		return True
+		
+t=int(input())
+for _ in range(t):
+	n=int(sys.stdin.readline())
+    #차이가 가장 적게 나오려면 절반나누고 +1 -1 해서 계속 늘려가기
+	a,b=n//2,n//2
+	while a>1:
+        #두 숫자가 소수가 되면 가장 적은 차이
+		if isPrime(a) and isPrime(b) and a+b==n:
+			print(a,b)
+			break
+		else:
+			a-=1
+			b+=1
