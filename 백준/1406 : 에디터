@@ -1,0 +1,22 @@
+import sys
+
+#추가 삭제 연산의 시간복잡도를 줄이기 위해 스택 사용
+#커서를 기준으로 왼쪽 오른쪽 문자열 구분
+left=list(input())
+right=list()
+t=int(input())
+
+for _ in range(t):
+	m=sys.stdin.readline().rstrip()
+	if m=="L" and left:
+		right.append(left.pop())
+	elif m=="D" and right:
+		left.append(right.pop())
+	elif m=="B" and left:
+		left.pop()
+	elif m[0]=="P":
+		left.append(m[-1])
+        
+#스택 구조로 오른쪽은 뒤집어서 출력
+print(''.join(left)+''.join(reversed(right)))
+
