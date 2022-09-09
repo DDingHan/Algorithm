@@ -1,0 +1,10 @@
+#-을 기준으로 나누는게 가장 최소가 된다.
+s=list(input().split('-'))
+num=[]
+for i in s:
+	n=list(map(int,i.split('+')))
+	num.append(sum(n))
+ans=num[0]
+for i in range(1,len(num)):
+	ans-=num[i]
+print(ans)
