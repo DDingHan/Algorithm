@@ -1,0 +1,22 @@
+from itertools import combinations
+
+n=int(input())
+s=[list(map(int,input().split())) for _ in range(n)]
+
+a=[i for i in range(1,n+1)]
+b=[i for i in list(combinations(a,n//2))]
+stat=[]
+
+for team in range(len(b)//2):
+	start=b[team]
+	link=b[-(team+1)]
+	start_score,link_score=0,0
+	for i in range(len(start)-1):
+		for j in range(i+1,len(start)):
+			start_score+=s[start[i]-1][start[j]-1]+s[start[j]-1][start[i]-1]
+			link_score+=s[link[i]-1][link[j]-1]+s[link[j]-1][link[i]-1]
+	stat.append(max(start_score,link_score)-min(start_score,link_score))
+print(min(stat))
+			
+	
+	
