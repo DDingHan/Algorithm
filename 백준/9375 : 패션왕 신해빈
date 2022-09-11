@@ -1,0 +1,19 @@
+from collections import defaultdict
+import sys
+
+t=int(input())
+for _ in range(t):
+	n=int(input())
+	T=set() #총 몇종류 인지
+	cloth=defaultdict(list)
+	for _ in range(n):
+		name,typ=sys.stdin.readline().split()
+		T.add(typ)
+		cloth[typ]+=[name]
+    #(a종류+1)*(b종류+1)*... -1 // -1을 하는 이유는 아무것도 안 입었을 경우 제외
+	ans=1
+	for i in cloth:
+		ans*=(len(cloth[i])+1)
+	print(ans-1)
+	
+	
