@@ -1,0 +1,31 @@
+import sys
+sys.setrecursionlimit(10**6)
+#시간복잡도를 줄이기 위해 dict 사용, 해당 정점을 방문하면 몇번째 인지 기록
+cnt=1
+def dfs(num):
+	global a,b,cnt
+	b[num]=cnt
+	cnt+=1
+	for n in a[num]:
+		if n not in b:
+			dfs(n)
+
+n,m,r=map(int,input().split())
+a=[[] for _ in range(n+1)]
+b=dict()
+for _ in range(m):
+	u,v=map(int,sys.stdin.readline().split())
+	a[u].append(v)
+	a[v].append(u)
+
+#정점 방문할때 적은 숫자부터 방문하기 위해 정렬
+for l in a:
+	l.sort()
+	
+dfs(r)
+
+for i in range(1,n+1):
+	if i in b:
+		print(b[i])
+	else:
+		print(0)
