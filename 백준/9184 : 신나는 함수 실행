@@ -1,0 +1,20 @@
+ans={}
+for a in range(0,21):
+	for b in range(0,21):
+		for c in range(0,21):
+			if a<=0 or b<=0 or c<=0:
+				ans[(a,b,c)]=1
+			elif a<b and b<c:
+				ans[(a,b,c)]=ans[(a,b,c-1)]+ans[(a,b-1,c-1)]-ans[(a,b-1,c)]
+			else:
+				ans[(a,b,c)]=ans[(a-1,b,c)]+ans[(a-1,b-1,c)]+ans[(a-1,b,c-1)]-ans[(a-1,b-1,c-1)]
+
+a,b,c=map(int,input().split())
+while a!=-1 or b!=-1 or c!=-1:
+	if a<=0 or b<=0 or c<=0:
+		print("w(%d, %d, %d) = 1" %(a,b,c))
+	elif a>20 or b>20 or c>20:
+		print("w(%d, %d, %d) = %d" %(a,b,c,ans[(20,20,20)]))
+	else:
+		print("w(%d, %d, %d) = %d" %(a,b,c,ans[(a,b,c)]))
+	a,b,c=map(int,input().split())
