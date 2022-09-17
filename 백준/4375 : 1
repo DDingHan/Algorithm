@@ -1,0 +1,12 @@
+while True:
+	try:
+		n=int(input())
+		ans='1'
+		while True:
+			if int(ans)<n or int(ans)%n!=0:
+				ans+='1'
+			else:
+				print(len(ans))
+				break
+	except:
+		break
