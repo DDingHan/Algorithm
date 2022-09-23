@@ -1,0 +1,59 @@
+from collections import deque
+import sys
+
+def find_root(num):
+	parents=deque()
+	parents.appendleft(num)
+	p=parent[num]
+	while p!=0:
+		num=p
+		p=parent[num]
+		parents.appendleft(num)
+	return parents
+
+def find_common(a_parents,b_parents):
+	#친척 관계가 없는 경우는 -1
+	
+	if a_parents[0]!=b_parents[0]:
+		return -1
+	else:
+		while a_parents and b_parents and a_parents[0]==b_parents[0]:
+			c=a_parents[0]
+			a_parents.popleft()
+			b_parents.popleft()
+		return c
+		
+n=int(input())
+a,b=map(int,input().split())
+m=int(input())
+children=[[] for _ in range(n+1)]
+parent=[0]*(n+1)
+visited=[False]*(n+1)
+dis=[0]*(n+1)
+for _ in range(m):
+	x,y=map(int,sys.stdin.readline().split())
+	children[x].append(y)
+	parent[y]=x
+
+#조상을 먼저 구해서 친척 관계가 있는지 구하기
+a_parents=find_root(a)
+b_parents=find_root(b)
+c=find_common(a_parents,b_parents)
+#친척 관계가 없는 경우는 -1
+if c==-1:
+	print(-1)
+else:
+	q=deque()
+	q.append(c)
+	visited[c]=True
+	answer=0
+	while q:
+		now=q.popleft()
+		for i in children[now]:
+			if not visited[i]:
+				visited[i]=True
+				dis[i]=dis[now]+1
+				q.append(i)
+				if i==a or i==b:
+					answer+=dis[i]
+	print(answer)
