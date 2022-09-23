@@ -1,0 +1,29 @@
+import sys
+from collections import deque
+
+w,h=map(int,sys.stdin.readline().split())
+dx = [1, -1, 0, 0, 1, -1, 1, -1]
+dy = [0, 0, -1, 1, -1, 1, 1, -1]
+
+while w!=0 and h!=0:
+	land=[list(map(int,sys.stdin.readline().split())) for _ in range(h)]
+	cnt,i,j=0,0,0
+	for i in range(h):
+		for j in range(w):
+			#(0,0)부터 섬 검색// 섬이 나오면 bfs로 근처 섬 탐색
+			if land[i][j]:
+				q=deque()
+				q.append([i,j])
+				land[i][j]=0
+				while q:
+					now_i,now_j=q.popleft()
+					for d in range(8):
+						#섬의 범위를 벗어나지 않았다면
+						if 0<=now_i+dy[d]<h and 0<=now_j+dx[d]<w:
+							#8방향으로 해당 구역에 섬이 있고 방문 하지 않았다면
+							if land[now_i+dy[d]][now_j+dx[d]]:
+								land[now_i+dy[d]][now_j+dx[d]]=0
+								q.append([now_i+dy[d],now_j+dx[d]])
+				cnt+=1
+	print(cnt)	
+	w,h=map(int,sys.stdin.readline().split())
