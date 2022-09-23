@@ -1,0 +1,16 @@
+from collections import deque
+
+a,b=map(int,input().split())
+q=deque()
+q.append((a,1))
+while q:
+	now,dis=q.popleft()
+	if now>b:
+		continue
+	if now==b:
+		print(dis)
+		break
+	q.append((now*2,dis+1))
+	q.append((now*10+1,dis+1))
+else:
+	print(-1)
