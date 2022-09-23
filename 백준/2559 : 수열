@@ -1,0 +1,19 @@
+n,k=map(int,input().split())
+num=list(map(int,input().split()))
+left=0
+right=k-1
+temp=num[left:right+1]
+s=sum(temp)
+m=s
+#시간을 줄이기 위해 구간 범위를 계속합을 구하는게 아니라 왼쪽을 빼고 오른쪽을 더하는 식으로 구현
+while True:
+	s-=num[left]
+	left+=1
+	right+=1
+	if right<len(num):
+		s+=num[right]
+		if s>m:
+			m=s
+	else:
+		break
+print(m)
