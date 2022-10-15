@@ -1,0 +1,14 @@
+from itertools import combinations as com
+import sys
+l=list(map(int,sys.stdin.readline().split()))
+while True:
+	nums=l[1:]
+	for num in com(nums,6):
+		for i in num:
+			print(i,end=" ")
+		print()
+	l=list(map(int,sys.stdin.readline().split()))
+	if l[0]!=0:
+		print()
+	else:
+		break
