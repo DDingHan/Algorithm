@@ -1,0 +1,8 @@
+from itertools import permutations as per
+n,m=map(int,input().split())
+num=list(map(int,input().split()))
+num.sort()
+for p in per(num,m):
+	for i in p:
+		print(i,end=" ")
+	print()
