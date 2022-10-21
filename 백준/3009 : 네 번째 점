@@ -1,0 +1,6 @@
+x,y=[0]*1001,[0]*1001
+for _ in range(3):
+	a,b=map(int,input().split())
+	x[a]+=1
+	y[b]+=1
+print(x.index(1), y.index(1))
