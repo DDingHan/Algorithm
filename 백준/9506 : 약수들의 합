@@ -1,0 +1,18 @@
+n=int(input())
+def find(n):
+	l=[]
+	for i in range(1,n):
+		if n%i==0:
+			l.append(i)
+	return l
+	
+while n!=-1:
+	l=find(n)
+	if sum(l)==n:
+		print(n,"= 1",end=" ")
+		for i in range(1,len(l)):
+			print("+",l[i],end=" ")
+		print()
+	else:
+		print(n,"is NOT perfect.")
+	n=int(input())
