@@ -1,0 +1,40 @@
+import sys
+from collections import deque
+
+# m : 상자 가로 칸 수, n : 상자 세로 칸 수, h : 쌓아올려지는 상자의 수
+m, n, h = map(int, input().split())
+arr = []
+queue = deque()
+for k in range(h):
+    temp = []
+    for i in range(n):
+        temp.append(list(map(int, sys.stdin.readline().split())))
+        for j in range(m):
+            if temp[i][j] == 1:
+                queue.append((k, i, j))
+    arr.append(temp)
+
+# 6방향 : 위, 아래, 왼쪽, 오른쪽, 앞, 뒤
+directions = [(1, 0, 0), (-1, 0, 0), (0, 0, -1), (0, 0, 1), (0, -1, 0), (0, 1, 0)]
+
+while queue:  # bfs 수행
+	z,y,x=queue.popleft()
+	for i in range(6):  # 6방향으로 익히기
+		dz = z + directions[i][0]
+		dy = y + directions[i][1]
+		dx = x + directions[i][2]
+		if 0 <= dz < h and 0 <= dy < n and 0 <= dx < m and arr[dz][dy][dx] == 0:  # 익힐 수 있는 토마토라면
+			arr[dz][dy][dx] = arr[z][y][x] + 1
+			queue.append((dz, dy, dx))
+
+result = 0  # 며칠 걸리는지
+for k in range(h):
+	for i in range(n):
+		for j in range(m):
+			if arr[k][i][j] == 0:  # 토마토가 모두 익지 못한 상황 발견시
+				print(-1)
+				exit(0)  # 바로 종료
+			else:
+				result = max(result, arr[k][i][j])  # 며칠 걸리는지 업데이트
+
+print(result - 1)
