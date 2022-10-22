@@ -1,0 +1,21 @@
+import sys
+from collections import deque
+T=int(input())
+for _ in range(T):
+	n=int(input())
+	h_x,h_y=map(int,input().split())
+	C=[tuple(map(int,sys.stdin.readline().rstrip().split())) for _ in range(n)]
+	r_x,r_y=map(int,input().split())
+	
+	Q=deque([(h_x,h_y)])
+	while Q:
+		x,y=Q.popleft()
+		if abs(x-r_x)+abs(y-r_y)<=1000:
+			print("happy")
+			break
+		P=[(c_x,c_y) for c_x,c_y in C if abs(x-c_x)+abs(y-c_y)<=1000]
+		for p in P:
+			Q.append(p)
+			C.remove(p)
+	else:
+		print("sad")
