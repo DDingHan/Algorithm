@@ -1,0 +1,36 @@
+import sys
+from collections import deque
+
+def check(height):
+	global C
+	count=0
+	for i in range(N):
+		for j in range(N):
+			if Area[i][j]-height>0 and (i,j) not in C:
+				bfs(i,j)
+				count+=1
+	return count
+
+def bfs(x,y):
+	global C
+	I=[-1,0,1,0]
+	J=[0,1,0,-1]
+	Q=deque([(x,y)])
+	while Q:
+		i,j=Q.popleft()
+		for di,dj in zip(I,J):
+			if 0<=i+di<N and 0<=j+dj<N:
+				if Area[i+di][j+dj]-height>0 and (i+di,j+dj) not in C:
+					Q.append((i+di,j+dj))
+					C.add((i+di,j+dj))
+
+N=int(input())
+Area=[list(map(int,sys.stdin.readline().rstrip().split())) for _ in range(N)]
+start,end=min(min(Area)),max(max(Area))
+Answer=[0]*(end+1)
+Max=0
+
+for height in range(start-1,end+1):
+	C=set()
+	Answer[height]=check(height)
+print(max(Answer))
