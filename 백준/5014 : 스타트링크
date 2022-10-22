@@ -1,0 +1,18 @@
+from collections import deque
+F,S,G,U,D=map(int,input().split())
+count=[0]*(F+1)
+visited=[0]*(F+1)
+Q=deque([S])
+visited[S]=1
+while Q:
+	n=Q.popleft()
+	if n==G:
+		print(count[n])
+		break
+	for i in (n+U,n-D):
+		if 0<i<=F and visited[i]==0:
+			Q.append(i)
+			count[i]=count[n]+1
+			visited[i]=1
+else:
+	print("use the stairs")
