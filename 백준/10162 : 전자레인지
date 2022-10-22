@@ -1,0 +1,15 @@
+time=[300,60,10]
+count=[0,0,0]
+T=int(input())
+while T!=0:
+	for t in range(3):
+		if (T-time[t])>=0:
+			T-=time[t]
+			count[t]+=1
+			break
+	else:
+		print(-1)
+		break
+else:
+	for c in count:
+		print(c,end=" ")
