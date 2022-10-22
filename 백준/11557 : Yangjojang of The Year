@@ -1,0 +1,12 @@
+N=int(input())
+for _ in range(N):
+	m=-1
+	name=""
+	n=int(input())
+	for _ in range(n):
+		a,b=input().split()
+		b=int(b)
+		if b>m:
+			m=b
+			name=a
+	print(name)
