@@ -1,0 +1,55 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def block():
+	check=[[0]*M for _ in range(N)]
+	count=0
+	for i in range(N):
+		for j in range(M):
+			if ice[i][j]>0 and check[i][j]==0:
+				bfs(i,j,check)
+				count+=1
+	return count
+
+def bfs(i,j,check):
+	Q=deque([(i,j)])
+	while Q:
+		y,x=Q.popleft()
+		for dy,dx in direction:
+			if 0<=y+dy<N and 0<=x+dx<M:
+				if ice[y+dy][x+dx]>0 and check[y+dy][x+dx]==0:
+					Q.append((y+dy,x+dx))
+					check[y+dy][x+dx]=1
+
+def melt():
+	global year,ice
+	temp=[[0]*M for _ in range(N)]
+	for i in range(N):
+		for j in range(M):
+			if ice[i][j]>0:
+				for di,dj in direction:
+					if 0<=i+di<N and 0<=j+dj<M:
+						if ice[i+di][j+dj]==0:
+							temp[i][j]+=1
+	
+	for i in range(N):
+		for j in range(M):
+			ice[i][j]=max(ice[i][j]-temp[i][j],0)
+	year+=1
+	
+N,M=map(int,input().split())
+ice=[list(map(int,input().split())) for _ in range(N)]
+direction=[(0,1),(1,0),(0,-1),(-1,0)]
+year=0
+
+while True:
+	b=block()
+	if b>=2:
+		print(year)
+		break
+	elif b==0:
+		print(0)
+		break
+	melt()
+		
