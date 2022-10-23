@@ -1,0 +1,12 @@
+import sys
+input = sys.stdin.readline
+
+s=0
+N=int(input())
+for i in range(N):
+	for j in range(N-1-i):
+		print(end=" ")
+	print("*",end="")
+	for j in range(i):
+		print(" *",end="")
+	print()
