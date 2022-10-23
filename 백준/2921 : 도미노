@@ -1,0 +1,9 @@
+import sys
+input = sys.stdin.readline
+
+s=0
+N=int(input())
+for i in range(N+1):
+	for j in range(i,N+1):
+		s+=i+j
+print(s)
