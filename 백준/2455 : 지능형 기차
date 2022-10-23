@@ -1,0 +1,13 @@
+import sys
+input = sys.stdin.readline
+
+s=0
+m=0
+for _ in range(4):
+	a,b=map(int,input().split())
+	s-=a
+	s+=b
+	if s>m:
+		m=s
+print(m)
+	
