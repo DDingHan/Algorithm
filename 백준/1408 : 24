@@ -1,0 +1,15 @@
+h,m,s=map(int,input().split(':')) #현재시간
+H,M,S=map(int,input().split(':')) #임무시간
+#임무시간 - 현재시간
+S-=s
+if S<0:
+	M-=1
+	S+=60
+M-=m
+if M<0:
+	H-=1
+	M+=60
+H-=h
+if H<0:
+	H+=24
+print("%02d:%02d:%02d" %(H,M,S))
