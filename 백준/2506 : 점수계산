@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+
+N=int(input())
+n=list(map(int,input().split()))
+S=0
+s=0
+for i in n:
+	if i==1:
+		s+=1
+		S+=s
+	elif i==0:
+		s=0
+print(S)
+	
