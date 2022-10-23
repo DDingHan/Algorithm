@@ -1,0 +1,15 @@
+n = int(input()) 
+l = list(map(int, input().split()))  
+m = int(input()) 
+start, end = 0, max(l)
+while start <= end:  
+    mid = (start + end) // 2  
+    s = 0
+    for i in l:
+        s+=min(i,mid)
+    if s <= m:  
+        start = mid + 1
+    else: 
+        end = mid - 1
+
+print(end)
