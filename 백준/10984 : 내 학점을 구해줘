@@ -1,0 +1,13 @@
+import sys
+input = sys.stdin.readline
+
+T=int(input())
+for _ in range(T):
+	N=int(input())
+	S_C,S_G=0,0
+	for _ in range(N):
+		C,G=input().split()
+		S_C+=int(C)
+		S_G+=int(C)*float(G)
+	print("%d %.1f" %(S_C,S_G/S_C))
+	
