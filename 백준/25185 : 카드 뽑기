@@ -1,0 +1,31 @@
+import sys
+input = sys.stdin.readline
+
+def check1():
+	for i,j,k in [(0,1,2),(0,1,3),(0,2,3),(1,2,3)]:
+		if a[i][1]==a[j][1] and a[i][1]==a[k][1]:
+			if int(a[j][0])-int(a[i][0])==1 and int(a[k][0])-int(a[j][0])==1:
+				return True
+	return False
+
+def check2():
+    for i in range(2):
+        if a.count(a[i])>=3:
+            return True
+    else:
+        return False
+
+def check3():
+	for i,j,k,l in [(0,1,2,3),(0,2,1,3),(0,3,1,2)]:
+		if a[i]==a[j] and a[k]==a[l]:
+			return True
+	return False
+    
+T=int(input())
+for i in range(T):
+    a=list(input().split())
+    a.sort()
+    if check1() or check2() or check3():
+        print(":)")
+    else:
+        print(":(")
