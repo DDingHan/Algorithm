@@ -1,0 +1,7 @@
+import sys
+T=int(input())
+for _ in range(T):
+	n=int(input())
+	l=[list(sys.stdin.readline().rstrip().split()) for _ in range(n)]
+	l.sort(key=lambda x:-int(x[0]))
+	print(l[0][1])
