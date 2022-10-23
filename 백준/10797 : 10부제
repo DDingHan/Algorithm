@@ -1,0 +1,11 @@
+import sys
+input = sys.stdin.readline
+
+N=int(input())
+n=list(map(int,input().split()))
+count=0
+for i in n:
+	if i==N:
+		count+=1
+print(count)
+	
