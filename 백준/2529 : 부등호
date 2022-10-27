@@ -1,0 +1,25 @@
+import sys
+input = sys.stdin.readline
+
+n=int(input())
+l=list(input().split())
+A=[]
+
+def back(count):
+	if count==n:
+		A.append(str("".join(map(str,ans))))
+		return
+	for i in range(10):
+		if i not in ans:
+			if (l[count]=='<' and ans[-1]<i) or (l[count]=='>' and ans[-1]>i):
+				ans.append(i)
+				back(count+1)
+				ans.pop()
+
+for i in range(10):
+	ans=[i]
+	back(0)
+
+A.sort()
+print(A[-1])
+print(A[0])
