@@ -1,0 +1,31 @@
+import math
+import sys
+input = sys.stdin.readline
+
+def prime(n):
+	for i in range(2,int(math.sqrt(n))+1):
+		if n%i==0:
+			return False
+	return True
+
+n=int(input())
+while n!=0:
+	start=3
+	end=n-start
+	if prime(end):
+		print("%d = %d + %d" %(n,start,end))
+	else:
+		while start<end:
+			while end%2==0 or not prime(end):
+				end-=1
+				start+=1
+			if start%2==1 and prime(start):
+				print("%d = %d + %d" %(n,start,end))
+				break
+			else:
+				while start%2==0 or not prime(start):
+					start+=1
+					end-=1
+		else:
+			print("Goldbach's conjecture is wrong.")
+	n=int(input())
