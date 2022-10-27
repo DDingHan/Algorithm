@@ -1,0 +1,46 @@
+import sys
+input = sys.stdin.readline
+
+def check_blue(block_size,x,y):
+	for i in range(x,x+block_size):
+		for j in range(y,y+block_size):
+			if l[i][j]==0:    #하나라도 하얀색이 있으면 False
+				return False
+	return True
+	
+def check_white(block_size,x,y):
+	for i in range(x,x+block_size):
+		for j in range(y,y+block_size):
+			if l[i][j]==1:    #하나라도 파란색이 있으면 False
+				return False
+	return True
+
+def Divide_and_Conquer(block_size,x,y):
+	global white,blue
+	if block_size==1:
+		if l[x][y]==1:
+			blue+=1
+		else:
+			white+=1
+		return
+	if check_blue(block_size,x,y):
+		blue+=1
+		return
+	if check_white(block_size,x,y):
+		white+=1
+		return
+	
+	#Divide
+	mid=block_size//2
+	Divide_and_Conquer(mid,x,y)
+	Divide_and_Conquer(mid,x,y+mid)
+	Divide_and_Conquer(mid,x+mid,y)
+	Divide_and_Conquer(mid,x+mid,y+mid)
+
+n=int(input())
+l=[list(map(int,input().split())) for _ in range(n)]
+white,blue=0,0
+Divide_and_Conquer(n,0,0)
+
+print(white)
+print(blue)
