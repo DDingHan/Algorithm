@@ -1,0 +1,24 @@
+import sys
+input = sys.stdin.readline
+
+def solved(block_size,x,y):
+	global ans
+	if x==r and y==c:
+		print(ans)
+		return
+	if block_size==1:
+		ans+=1
+		return
+	if not(x<=r<x+block_size and y<=c<y+block_size):
+		ans+=block_size**2
+		return
+
+	mid=block_size//2
+	solved(mid,x,y)
+	solved(mid,x,y+mid)
+	solved(mid,x+mid,y)
+	solved(mid,x+mid,y+mid)
+
+n,r,c=map(int,input().split())
+ans=0
+solved(2**n,0,0)
