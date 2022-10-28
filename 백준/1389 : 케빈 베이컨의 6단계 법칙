@@ -1,0 +1,33 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(start,end):
+	Q=deque([(start,0)])
+	C=set([start])
+	while Q:
+		n,c=Q.popleft()
+		if n==end:
+			return c
+		for i in G[n]:
+			if i not in C:
+				Q.append((i,c+1))
+				C.add(i)
+
+N,M=map(int,input().split())
+G=[[] for _ in range(N+1)]
+for _ in range(M):
+	a,b=map(int,input().split())
+	G[a].append(b)
+	G[b].append(a)
+	
+k,kn=0,101
+for s in range(1,N+1):
+	num=0
+	for e in range(1,N+1):
+		if s!=e:
+			num+=bfs(s,e)
+	if num<kn:
+		kn=num
+		k=s
+print(k)
