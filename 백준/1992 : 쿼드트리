@@ -1,0 +1,35 @@
+import sys
+input = sys.stdin.readline
+
+def check(n,x,y,c):
+	for i in range(x,x+n):
+		for j in range(y,y+n):
+			if M[i][j]!=c:
+				return False
+	return True
+
+def dac(block_size,x,y):
+	global ans
+	if block_size==1:
+		ans+=M[x][y]
+		return
+	if check(block_size,x,y,'0'):
+		ans+='0'
+		return
+	if check(block_size,x,y,'1'):
+		ans+='1'
+		return
+	
+	ans+="("
+	d=block_size//2
+	dac(d,x,y)
+	dac(d,x,y+d)
+	dac(d,x+d,y)
+	dac(d,x+d,y+d)
+	ans+=")"
+			
+N=int(input())
+M=[list(input().rstrip()) for _ in range(N)]
+ans=""
+dac(N,0,0)
+print(ans)
