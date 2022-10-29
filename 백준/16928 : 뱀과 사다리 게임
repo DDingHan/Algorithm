@@ -1,0 +1,32 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N,M=map(int,input().split())
+ladder={}
+for _ in range(N):
+	x,y=map(int,input().split())
+	ladder[x]=y
+snake={}
+for _ in range(M):
+	u,v=map(int,input().split())
+	ladder[u]=v
+	
+board=[0]*(101)
+Q=deque([(1,0)])
+board[1]=1
+while Q:
+	n,c=Q.popleft()
+	if n==100:
+		print(c)
+		break
+	for i in range(1,7):
+		ni=n+i
+		if 0<ni<=100:
+			if ni in ladder.keys():
+				ni=ladder[ni]	
+			if ni in snake.keys():
+				ni=snake[ni]
+			if board[ni]==0:
+				Q.append((ni,c+1))
+				board[ni]=1
