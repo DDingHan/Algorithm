@@ -1,0 +1,17 @@
+answer=[]
+def back():
+	global answer
+	if len(answer)==M:
+		print(" ".join(map(str,answer)))
+		return
+	
+	for i in l:
+		if (answer and i>=answer[-1]) or not answer:
+			answer.append(i)
+			back()
+			answer.pop()
+
+N,M=map(int,input().split())
+l=list(map(int,input().split()))
+l.sort()
+back()
