@@ -1,0 +1,35 @@
+import sys
+input = sys.stdin.readline
+N=int(input())
+G={}
+def preorder(now):
+	if now=='.':
+		return
+	print(now,end="")
+	preorder(G[now][0]) #left
+	preorder(G[now][1]) #right
+
+def inorder(now):
+	if now=='.':
+		return
+	inorder(G[now][0]) #left
+	print(now,end="")
+	inorder(G[now][1]) #right
+
+def postorder(now):
+	if now=='.':
+		return
+	postorder(G[now][0]) #left
+	postorder(G[now][1]) #right
+	print(now,end="")
+
+for _ in range(N):
+	root,left,right=input().split()
+	G[root]=[left,right]
+	
+preorder('A')
+print()
+inorder('A')
+print()
+postorder('A')
+print()	
