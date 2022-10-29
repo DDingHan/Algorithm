@@ -1,0 +1,23 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N=int(input())
+G=[[] for _ in range(N)]
+for i in range(N):
+	temp=list(map(int,input().split()))
+	for j in range(N):
+		if temp[j]==1:
+			G[i].append(j)
+			
+ans=[[0]*N for _ in range(N)]
+for i in range(N):
+	Q=deque([i])
+	while Q:
+		n=Q.popleft()
+		for j in G[n]:
+			if ans[i][j]==0:
+				Q.append(j)
+				ans[i][j]=1
+for i in ans:
+	print(" ".join(map(str,i)))
