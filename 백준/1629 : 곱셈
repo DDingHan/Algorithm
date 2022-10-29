@@ -1,0 +1,10 @@
+a,b,c=map(int,input().split())
+def dac(a,b):
+	if b==1:
+		return a%c
+	temp=dac(a,b//2)
+	if b%2==1:
+		return (temp*temp*a)%c
+	else:
+		return (temp*temp)%c
+print(dac(a,b))
