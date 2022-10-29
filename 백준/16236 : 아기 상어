@@ -1,0 +1,45 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def find_fish(x,y):
+	fish=[]
+	visited=[[False]*N for _ in range(N)]
+	Q=deque([(x,y,0)])
+	visited[x][y]=True
+	while Q:
+		i,j,c=Q.popleft()
+		for di,dj in [(-1,0),(0,-1),(0,1),(1,0)]: 
+			ni,nj=i+di,j+dj
+			if 0<=ni<N and 0<=nj<N:
+				if not visited[ni][nj] and M[ni][nj]<=size: #먹거나 지나갈수 있으면
+					Q.append((ni,nj,c+1))
+					visited[ni][nj]=True
+					if 0<M[ni][nj]<size: #먹을수 있으면
+						fish.append((ni,nj,c+1))
+	return sorted(fish,key=lambda x: (x[2],x[0],x[1])) #거리,i,j순으로 정렬
+
+N=int(input())
+M=[]
+for i in range(N):
+	temp=list(map(int,input().split()))
+	M.append(temp)
+	for j in range(N):
+		if temp[j]==9:
+			x,y=i,j
+
+size=2
+need=size
+time=0
+while True:
+	fish=find_fish(x,y)
+	if not fish: #더이상 먹을 물고기가 없으면 -> 엄마상어
+		print(time)
+		break
+	M[x][y]=0    #이동하면 그 자리는 빈칸
+	x,y=fish[0][0],fish[0][1]  #아기상어가 먹이로 이동
+	time+=fish[0][2]          
+	need-=1				
+	if need==0:
+		size+=1
+		need=size
