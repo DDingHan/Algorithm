@@ -1,0 +1,40 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(x,y,color):
+	Q=deque([(x,y)])
+	check[x][y]=1
+	while Q:
+		i,j=Q.popleft()
+		for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+			ni=i+di
+			nj=j+dj
+			if 0<=ni<N and 0<=nj<N and M[ni][nj]==color and check[ni][nj]==0:
+				Q.append((ni,nj))
+				check[ni][nj]=1
+				
+N=int(input())
+M=[list(input().rstrip()) for _ in range(N)]
+check=[[0]*N for _ in range(N)]
+a=0
+for i in range(N):
+	for j in range(N):
+		if check[i][j]==0:
+			bfs(i,j,M[i][j])
+			a+=1
+
+for i in range(N):
+	for j in range(N):
+		if M[i][j]=='R':
+			M[i][j]='G'
+			
+b=0
+check=[[0]*N for _ in range(N)]
+
+for i in range(N):
+	for j in range(N):
+		if check[i][j]==0:
+			bfs(i,j,M[i][j])
+			b+=1
+print(a,b)
