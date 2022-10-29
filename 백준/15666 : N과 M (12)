@@ -1,0 +1,21 @@
+answer=[]
+check=set()
+def back():
+	global answer,check
+	if len(answer)==M:
+		temp=" ".join(map(str,answer))
+		if temp not in check:
+			check.add(temp)
+			print(temp)
+		return
+		
+	for i in l:
+		if (answer and i>=answer[-1]) or not answer:
+			answer.append(i)
+			back()
+			answer.pop()
+
+N,M=map(int,input().split())
+l=list(map(int,input().split()))
+l.sort()
+back()
