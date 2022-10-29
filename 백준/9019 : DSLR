@@ -1,0 +1,41 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+T=int(input())
+for _ in range(T):
+	A,B=map(int,input().split())
+	visited=[False]*(10000)
+	Q=deque([(A,"")])
+	visited[A]=True
+	while Q:
+		n,ans=Q.popleft()
+		if n==B:
+			print(ans)
+			break
+		#D
+		num=(n*2)%10000
+		if not visited[num]:
+			Q.append((num,ans+"D"))
+			visited[num]=True
+		#S
+		num=(n-1)%10000
+		if not visited[num]:
+			Q.append((num,ans+"S"))
+			visited[num]=True
+		#L
+		num=str(n)
+		if len(num)<4:
+			num="0"*(4-len(num))+num
+		num=int(num[1:]+num[0])
+		if not visited[num]:
+			Q.append((num,ans+"L"))
+			visited[num]=True
+		#R
+		num=str(n)
+		if len(num)<4:
+			num="0"*(4-len(num))+num
+		num=int(num[-1]+num[:-1])
+		if not visited[num]:
+			Q.append((num,ans+"R"))
+			visited[num]=True
