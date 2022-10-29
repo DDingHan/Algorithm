@@ -1,0 +1,12 @@
+import sys
+input = sys.stdin.readline
+
+N,M=map(int,input().split())
+A=[list(map(int,input().split())) for _ in range(N)]
+for i in range(N):
+	temp=list(map(int,input().split()))
+	for j in range(M):
+		A[i][j]+=temp[j]
+for i in A:
+	print(" ".join(map(str,i)))
+	
