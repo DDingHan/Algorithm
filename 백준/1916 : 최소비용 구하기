@@ -1,0 +1,25 @@
+import sys
+import heapq  # 우선순위 큐 구현을 위함
+input = sys.stdin.readline
+INF=int(1e9)
+N=int(input())
+M=int(input())
+G=[[] for _ in range(N+1)]
+dis=[INF]*(N+1)
+for _ in range(M):
+	start,end,price=map(int,input().split())
+	G[start].append((end,price))
+start,end=map(int,input().split())
+dis[start] = 0  # 시작 값은 0이어야 함
+Q=[]
+heapq.heappush(Q, [dis[start], start])  # 시작 노드부터 탐색 시작 하기 위함.
+while Q:
+	cur_dis,cur_des=heapq.heappop(Q) #우선순위큐 여서 가장 가까운 곳부터 탐색
+	if dis[cur_des]<cur_dis: #기존 거리보다 더 멀다면 갱신 x
+		continue
+	for new_des,new_dis in G[cur_des]: 
+		distance=cur_dis+new_dis
+		if distance<dis[new_des]: #현재 목적지 까지의 거리보다 더 짧은 거리가 나오면
+			dis[new_des]=distance
+			heapq.heappush(Q,[distance,new_des])
+print(dis[end])
