@@ -1,0 +1,23 @@
+import sys
+from itertools import combinations as com
+input = sys.stdin.readline
+N,M=map(int,input().split())
+house=[]
+chicken=[]
+for i in range(N):
+	temp=list(map(int,input().split()))
+	for j in range(N):
+		if temp[j]==1:
+			house.append((i,j))
+		elif temp[j]==2:
+			chicken.append((i,j))
+ans=int(1e9)
+for L in com(chicken,M):
+	s=0
+	for h_x,h_y in house:
+		dis=int(1e9)
+		for c_x,c_y in L:
+			dis=min(dis,abs(c_x-h_x)+abs(c_y-h_y))
+		s+=dis
+	ans=min(ans,s)
+print(ans)
