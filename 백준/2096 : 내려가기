@@ -1,0 +1,16 @@
+import sys
+input = sys.stdin.readline
+N=int(input())
+dp_max,dp_min=[0]*3,[0]*3
+max_temp,min_temp=[0]*3,[0]*3
+for i in range(N):
+	temp=list(map(int,input().split()))
+	start,end=-1,2
+	for j in range(3):
+		max_temp[j]=temp[j]+max(dp_max[max(start,0):min(end,3)])
+		min_temp[j]=temp[j]+min(dp_min[max(start,0):min(end,3)])
+		start+=1
+		end+=1
+	for j in range(3):   #깊은 복사 
+		dp_max[j],dp_min[j]=max_temp[j],min_temp[j]
+print(max(dp_max),min(dp_min))
