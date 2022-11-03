@@ -1,0 +1,28 @@
+def dac(block_size,x,y,n):
+	global ans
+	if n==5:
+		for i in range(x,x+block_size):
+			for j in range(y,y+block_size):
+				ans[i][j]=' '
+		return
+	if block_size==1:
+		ans[x][y]='*'
+		return
+	d=block_size//3
+	dac(d,x,y,1)
+	dac(d,x,y+d,2)
+	dac(d,x,y+2*d,3)
+	dac(d,x+d,y,4)
+	dac(d,x+d,y+d,5)
+	dac(d,x+d,y+2*d,6)
+	dac(d,x+2*d,y,7)
+	dac(d,x+2*d,y+d,8)
+	dac(d,x+2*d,y+2*d,9)
+	
+N=int(input())
+ans=[[0]*N for _ in range(N)]
+dac(N,0,0,0)
+for i in ans:
+	for j in i:
+		print(j,end='')
+	print()
