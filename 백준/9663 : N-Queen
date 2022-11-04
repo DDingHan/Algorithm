@@ -1,0 +1,19 @@
+def back():
+	global ans,count
+	if len(ans)==N:
+		count+=1
+		return
+	for i in range(N):
+		if i not in ans: #같은 줄에는 못 놓기 때문
+			for x,y in enumerate(ans): #들어간 모든 퀸과 대각선 확인
+				if abs(x-len(ans))==abs(y-i): #대각선이 겹치면
+					break
+			else: #대각선이 안 겹치면
+				ans.append(i)
+				back()
+				ans.pop()
+N=int(input())
+count=0
+ans=[]
+back()
+print(count)
