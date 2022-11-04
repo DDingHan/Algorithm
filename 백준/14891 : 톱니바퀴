@@ -1,0 +1,41 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def Rotate():
+	global T,R
+	for i in range(4):
+		if R[i]==1: #시계
+			T[i].appendleft(T[i].pop())
+		elif R[i]==-1: #반시계
+			T[i].append(T[i].popleft())
+		
+T=[deque(list(input().rstrip())) for _ in range(4)]
+K=int(input())
+for _ in range(K):
+	n,d=map(int,input().split())
+	R=[0,0,0,0]
+	R[n-1]=d
+	now=n-1
+	right=now+1
+	while right<=3:
+		if T[now][2]!=T[right][6]: #다른 극이면 반대방향 회전
+			R[right]=R[now]*(-1)
+			now+=1
+			right+=1
+		else:
+			break #같은 극이면 더이상 회전 X
+	now=n-1
+	left=now-1
+	while left>=0:
+		if T[now][6]!=T[left][2]:
+			R[left]=R[now]*(-1)
+			now-=1
+			left-=1
+		else:
+			break
+	Rotate()  #모든 톱니바퀴에 대해서 회전
+S=0
+for i in range(4):
+	S+=int(T[i][0])*(2**i)
+print(S)
