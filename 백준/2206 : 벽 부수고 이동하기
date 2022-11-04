@@ -1,0 +1,25 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+N,M=map(int,input().split())
+board=[list(input().rstrip()) for _ in range(N)]
+dis=[[[0]*2 for _ in range(M)] for _ in range(N)]
+Q=deque([(0,0,0)])
+dis[0][0][0]=1
+while Q:
+	i,j,k=Q.popleft()
+	if i==N-1 and j==M-1:
+		print(dis[i][j][k])
+		break
+	for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+		ni,nj=i+di,j+dj
+		if 0<=ni<N and 0<=nj<M:
+			if board[ni][nj]=='0' and dis[ni][nj][k]==0: #벽이 아니고 처음이면
+				Q.append((ni,nj,k))
+				dis[ni][nj][k]=dis[i][j][k]+1
+			elif board[ni][nj]=='1' and k==0 and dis[ni][nj][1]==0:
+				Q.append((ni,nj,1))
+				dis[ni][nj][1]=dis[i][j][0]+1
+else:
+	print(-1)
+
