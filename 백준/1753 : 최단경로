@@ -1,0 +1,27 @@
+import sys
+import heapq
+input = sys.stdin.readline
+INF=int(1e9)
+V,E=map(int,input().split())
+start=int(input())
+L=[[] for _ in range(V+1)]
+for _ in range(E):
+	u,v,w=map(int,input().split())
+	L[u].append((v,w))
+ans=[INF]*(V+1)
+ans[start]=0
+Q=[(0,start)]
+while Q:
+	weight,now=heapq.heappop(Q)
+	if weight<ans[now]:
+		continue
+	for v,w in L[now]:
+		if weight+w < ans[v]:
+			ans[v]=weight+w
+			heapq.heappush(Q,(ans[v],v))
+for i in range(1,V+1):
+	if ans[i]==INF:
+		print("INF")
+	else:
+		print(ans[i])
+			
