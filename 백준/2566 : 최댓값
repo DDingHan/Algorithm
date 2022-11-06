@@ -1,0 +1,10 @@
+m=-1
+
+for i in range(9):
+    t = list(map(int, input().split()))
+    if max(t) > m:
+        m = max(t) 
+        x = i + 1 
+        y = t.index(m) + 1 
+print(m)
+print(x,y)
