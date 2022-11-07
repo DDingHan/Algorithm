@@ -1,0 +1,35 @@
+import heapq
+import sys
+input = sys.stdin.readline
+INF=int(1e9)
+
+def d(start,end):
+	global G
+	distance=[INF]*(N+1)
+	distance[start]=0
+	Q=[(0,start)]
+	while Q:
+		dis,now=heapq.heappop(Q)
+		if now==end:
+			break
+		if dis>distance[now]:
+			continue
+		for des,w in G[now]:
+			if distance[des]>dis+w:
+				distance[des]=dis+w
+				heapq.heappush(Q,(dis+w,des))
+	return distance[end]
+
+N,E=map(int,input().split())
+G=[[] for _ in range(N+1)]
+for _ in range(E):
+	a,b,c=map(int,input().split())
+	G[a].append((b,c))
+	G[b].append((a,c))
+V1,V2=map(int,input().split())
+S1=d(1,V1)+d(V1,V2)+d(V2,N)
+S2=d(1,V2)+d(V1,V2)+d(V1,N)
+if min(S1,S2)>=INF:
+	print(-1)
+else:
+	print(min(S1,S2))
