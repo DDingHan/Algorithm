@@ -1,0 +1,13 @@
+S=input()
+B=input()
+M=len(B)
+stack=[]
+for i in S:
+	stack.append(i)
+	if len(stack)>=M and "".join(stack[-M:])==B:
+		for _ in B:
+			stack.pop()
+if stack:
+	print("".join(stack))
+else:
+	print("FRULA")
