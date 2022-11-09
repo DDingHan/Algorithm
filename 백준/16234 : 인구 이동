@@ -1,0 +1,41 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(x,y):
+	global G,G_num,union
+	Q=deque([(x,y)])
+	union[x][y]=G_num
+	S=M[x][y]
+	count=1
+	while Q:
+		i,j=Q.popleft()
+		for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+			ni,nj=i+di,j+dj
+			if 0<=ni<N and 0<=nj<N:
+				if union[ni][nj]==0 and L<=abs(M[ni][nj]-M[i][j])<=R:
+					Q.append((ni,nj))
+					union[ni][nj]=G_num
+					S+=M[ni][nj]
+					count+=1
+	G.append((S,count))
+	G_num+=1
+	
+N,L,R=map(int,input().split())
+M=[list(map(int,input().split())) for _ in range(N)]
+move=0
+while True:
+	G=[(0,0)]
+	G_num=1
+	union=[[0]*N for _ in range(N)]
+	for i in range(N):
+		for j in range(N):
+			if union[i][j]==0:
+				bfs(i,j)
+	if G_num-1==N*N: #경계선이 모두 닫힌 경우
+		print(move)
+		break
+	for i in range(N): #인구 이동
+		for j in range(N):
+			M[i][j]=G[union[i][j]][0]//G[union[i][j]][1]
+	move+=1
