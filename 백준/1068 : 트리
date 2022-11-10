@@ -1,0 +1,17 @@
+def dfs(i):
+	global L
+	L[i]=-2   #부모를 지우기
+	for j in range(len(L)):
+		if L[j]==i:
+			dfs(j)
+
+N=int(input())
+L=list(map(int,input().split()))
+d=int(input())
+dfs(d)
+count=0
+for i in range(len(L)):
+	#부모가 없어지지도 않았고 해당 노드가 부모로 존재 하지 않는 경우
+	if L[i]!=-2 and i not in L: 
+		count+=1
+print(count)
