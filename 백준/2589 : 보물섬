@@ -1,0 +1,27 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(x,y):
+	visited=[[False]*K for _ in range(N)]
+	Q=deque([(x,y,0)])
+	visited[x][y]=True
+	m=0
+	while Q:
+		i,j,c=Q.popleft()
+		m=max(m,c)
+		for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+			ni,nj=i+di,j+dj
+			if (0<=ni<N and 0<=nj<K) and M[ni][nj]=='L' and not visited[ni][nj]:
+				Q.append((ni,nj,c+1))
+				visited[ni][nj]=True
+	return m
+
+N,K=map(int,input().split())
+M=[list(input().rstrip()) for _ in range(N)]
+ans=0
+for i in range(N):
+	for j in range(K):
+		if M[i][j]=='L':
+			ans=max(ans,bfs(i,j))
+print(ans)
