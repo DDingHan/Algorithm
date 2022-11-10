@@ -1,0 +1,16 @@
+N=int(input())
+L=list(map(int,input().split()))
+stack=[]
+ans=[]
+for i in range(N):
+	while stack:
+		if stack[-1][1]>L[i]:     #수신할 탑이 있는 경우
+			ans.append(stack[-1][0]+1)
+			break
+		else:
+			stack.pop()
+	else: #수신할 탑이 없는경우
+		ans.append(0)
+	stack.append((i,L[i]))
+		
+print(" ".join(map(str,ans)))
