@@ -1,0 +1,15 @@
+L=list(map(int,input()))
+N=len(L)
+dp=[0]*(N+1)
+if L[0]==0:
+	print(0)
+else:
+	dp[0]=dp[1]=1
+	for i in range(1,N):
+		if L[i]!=0:
+			dp[i+1]+=dp[i]
+		a=L[i-1]*10+L[i]
+		if 10<=a<=26:
+			dp[i+1]+=dp[i-1]
+		dp[i+1]=dp[i+1]%1000000
+	print(dp[N])
