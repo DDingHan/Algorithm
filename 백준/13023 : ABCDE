@@ -1,0 +1,31 @@
+import sys
+input = sys.stdin.readline
+
+def dfs(i,c):
+	global V,ans
+	if c==4:
+		ans=True
+		return
+	for k in G[i]:
+		if not V[k]:
+			V[k]=True
+			dfs(k,c+1)
+			V[k]=False
+
+N,M=map(int,input().split())
+G=[[] for _ in range(N)]
+for _ in range(M):
+	a,b=map(int,input().split())
+	G[a].append(b)
+	G[b].append(a)
+ans=False
+V=[False]*N
+for i in range(N):
+	V[i]=True
+	dfs(i,0)
+	V[i]=False
+	if ans:
+		print(1)
+		break
+else:
+	print(0)
