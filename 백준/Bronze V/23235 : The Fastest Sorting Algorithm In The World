@@ -1,0 +1,6 @@
+case=1
+N=list(map(int,input().split()))
+while N[0]!=0:
+	print("Case %d: Sorting... done!" %case)
+	case+=1
+	N=list(map(int,input().split()))
