@@ -1,0 +1,7 @@
+import sys
+a=input()
+for i in a:
+    if 65<=ord(i) and ord(i)<=90:
+        print(chr(ord(i)+32),end="")
+    elif 97<=ord(i) and ord(i)<=122:
+        print(chr(ord(i)-32),end="")
