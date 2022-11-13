@@ -1,0 +1,8 @@
+a=input()
+b=[-1 for i in range(26)]
+for i in range(len(a)):
+    if b[ord(a[i])-97]==-1:
+        b[ord(a[i])-97]=i
+for i in b:
+    print(i, end=' ')
+    
