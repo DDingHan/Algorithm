@@ -1,0 +1,12 @@
+s=0
+a=101
+for _ in range(4):
+	n=int(input())
+	s+=n
+	a=min(a,n)
+b=101
+for _ in range(2):
+	n=int(input())
+	s+=n
+	b=min(b,n)
+print(s-a-b)
