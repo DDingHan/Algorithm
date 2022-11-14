@@ -1,0 +1,7 @@
+N=float(input())
+while N!=0:
+	s=0
+	for i in range(5):
+		s+=N**i
+	print("%.2f" %s)
+	N=float(input())
