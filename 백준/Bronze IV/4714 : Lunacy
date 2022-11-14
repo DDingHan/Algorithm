@@ -1,0 +1,4 @@
+N=float(input())
+while N>=0:
+	print("Objects weighing %.2f on Earth will weigh %.2f on the moon." %(N,N*0.167))
+	N=float(input())
