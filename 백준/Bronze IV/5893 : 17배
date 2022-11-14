@@ -1,0 +1,3 @@
+N=input()
+ans=int(N+"0000",2)+int(N,2)
+print(bin(ans)[2:]
