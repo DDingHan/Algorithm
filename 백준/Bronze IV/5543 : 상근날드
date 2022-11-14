@@ -1,0 +1,7 @@
+m=2100
+for _ in range(3):
+	m=min(m,int(input()))
+n=2100
+for _ in range(2):
+	n=min(n,int(input()))
+print(m+n-50)
