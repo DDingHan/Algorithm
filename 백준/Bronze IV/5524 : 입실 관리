@@ -1,0 +1,10 @@
+#65~90 A~Z 97~122 a~z
+N=int(input())
+for _ in range(N):
+	S=input()
+	for i in S:
+		if 65<=ord(i)<=90:
+			print(chr(ord(i)+32),end="")
+		else:
+			print(i,end="")
+	print()
