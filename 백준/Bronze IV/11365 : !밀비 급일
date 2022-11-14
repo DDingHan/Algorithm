@@ -1,0 +1,5 @@
+S=list(input())
+while "".join(S)!="END":
+	S.reverse()
+	print("".join(S))
+	S=list(input())
