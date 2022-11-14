@@ -1,0 +1,6 @@
+a,b=map(int,input().split())
+c=a*b
+l=list(map(int,input().split()))
+for i in range(5):
+	l[i]=l[i]-c
+print(" ".join(map(str,l)))
