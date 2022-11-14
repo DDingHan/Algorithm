@@ -1,0 +1,14 @@
+L=int(input())
+A=int(input())
+B=int(input())
+C=int(input())
+D=int(input())
+if A%C==0:
+	K=A//C
+else:
+	K=A//C+1
+if B%D==0:
+	M=B//D
+else:
+	M=B//D+1
+print(L-max(K,M))
