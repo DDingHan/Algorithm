@@ -1,0 +1,30 @@
+import sys
+input = sys.stdin.readline
+
+#합성수 = 소수 * 어떤 수
+#소수로 나눠진다면 이 수는 합성수임
+def is_prime(x):
+	for i in range(len(p)):
+		if p[i]*p[i]>x: break
+		if x%p[i]==0: return False
+	return True
+
+#에라소트테네스의 체
+M=2000001
+p=[]
+c=[True]*M
+c[1]=False
+for i in range(2,M):
+	if c[i]:
+		p.append(i)
+		for j in range(i+i,M,i):
+			c[j]=False
+
+T=int(input())
+for _ in range(T):
+	a,b=map(int,input().split())
+	S=a+b
+	if S<4:	print("NO")
+	elif S%2==0:	print("YES") #골드 바흐의 추축
+	elif is_prime(S-2):	print("YES") #홀수(S) = 짝수(2) + 홀수(S-2)
+	else:	print("NO")
