@@ -1,0 +1,78 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def check_air():
+	global B
+	Q=deque()
+	count=0
+	for i,j in [(0,0),(0,M-1),(N-1,0),(N-1,M-1)]:
+		Q.append((i,j))
+		B[i][j]='a'
+		count+=1
+	while Q:
+		i,j=Q.popleft()
+		for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+			ni,nj=i+di,j+dj
+			if 0<=ni<N and 0<=nj<M:
+				if B[ni][nj]==0:
+					Q.append((ni,nj))
+					B[ni][nj]='a'
+					count+=1
+	return count
+
+def check_cheese(x,y):
+	global B,count
+	Q=deque([(x,y)])
+	B[x][y]=2
+	count+=1
+	while Q:
+		i,j=Q.popleft()
+		for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+			ni,nj=i+di,j+dj
+			if 0<=ni<N and 0<=nj<M:
+				if B[ni][nj]==1:
+					Q.append((ni,nj))
+					B[ni][nj]=2
+					count+=1
+		
+N,M=map(int,input().split())
+B=[list(map(int,input().split())) for _ in range(N)]
+Time=0
+count=0
+while True:
+	#모든 공간이 공기라면 종료
+	air=check_air()
+	if air==N*M:
+		print(Time)
+		print(count)
+		break
+	
+	count=0
+	#치즈 갯수 구하기
+	for i in range(N):
+		for j in range(M):
+			if B[i][j]==1:
+				check_cheese(i,j)	
+	
+	#공기와 닿아있는 치즈 삭제
+	for i in range(N):
+		for j in range(M):
+			if B[i][j]==2:
+				for di,dj in [(-1,0),(0,1),(1,0),(0,-1)]:
+					ni,nj=i+di,j+dj
+					if 0<=ni<N and 0<=nj<M:
+						if B[ni][nj]=='a':
+							B[i][j]=0
+							break
+	
+	#공기->0 치즈->1 초기화
+	for i in range(N):
+		for j in range(M):
+			if B[i][j]=='a':
+				B[i][j]=0
+			elif B[i][j]==2:
+				B[i][j]=1
+				
+	#시간 1 증가
+	Time+=1
