@@ -1,0 +1,11 @@
+import sys
+input = sys.stdin.readline
+N=int(input())
+L=[tuple(map(int,input().split())) for _ in range(N)]
+x1,y1=L[0]
+S=0
+for i in range(1,N-1):
+	x2,y2=L[i]
+	x3,y3=L[i+1]
+	S+=((x1*y2+x2*y3+x3*y1)-(x2*y1+x3*y2+x1*y3))/2  #신발끈 정리 
+print(abs(S))
