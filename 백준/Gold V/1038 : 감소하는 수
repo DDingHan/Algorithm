@@ -1,0 +1,17 @@
+def back(N):
+	global ans
+	if len(ans)==N:
+		A.append("".join(map(str,ans)))
+		return
+	for i in range(10):
+		if (not ans) or (ans and i not in ans and ans[-1]>i):
+			ans.append(i)
+			back(N)
+			ans.pop()
+
+A=[]
+for i in range(1,11):
+	ans=[]
+	back(i)
+N=int(input())
+print(A[N] if N<len(A) else -1)
