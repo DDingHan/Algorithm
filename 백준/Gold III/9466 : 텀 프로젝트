@@ -1,0 +1,27 @@
+import sys
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+
+def dfs(i):
+	global Team,visited,ans
+	visited[i]=True
+	Team.append(i)
+	next=L[i]
+	if not visited[next]:
+		dfs(next)
+	else:
+		if next in Team: #사이클 여부 확인
+			ans+=Team[Team.index(next):] #사이클 부분만 집어넣기
+		return
+	
+T=int(input())
+for _ in range(T):
+	N=int(input())
+	L=[0]+list(map(int,input().split()))
+	visited=[False]*(N+1)
+	ans=[]
+	for i in range(1,N+1):
+		if not visited[i]:
+			Team=[]
+			dfs(i)
+	print(N-len(ans))
