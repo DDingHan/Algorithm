@@ -1,0 +1,44 @@
+from collections import deque
+A,B,C=map(int,input().split())
+visited=[[[False]*(C+1) for _ in range(B+1)] for _ in range(A+1)]
+Q=deque([(0,0,C)])
+ans=set()
+visited[0][0][C]=True
+while Q:
+	a,b,c=Q.popleft()
+	if a==0: #A물통이 비어 있을 때
+		ans.add(c)
+	if a>0 and b<B: #A->B
+		m=min(B-b,a)
+		if not visited[a-m][b+m][c]:
+			Q.append((a-m,b+m,c))
+			visited[a-m][b+m][c]=True
+	if a>0 and c<C: #A->C
+		m=min(C-c,a)
+		if not visited[a-m][b][c+m]:
+			Q.append((a-m,b,c+m))
+			visited[a-m][b][c+m]=True
+	if b>0 and a<A: #B->A
+		m=min(A-a,b)
+		if not visited[a+m][b-m][c]:
+			Q.append((a+m,b-m,c))
+			visited[a+m][b-m][c]=True
+	if b>0 and c<C: #B->C
+		m=min(C-c,b)
+		if not visited[a][b-m][c+m]:
+			Q.append((a,b-m,c+m))
+			visited[a][b-m][c+m]=True
+	if c>0 and a<A: #C->A
+		m=min(A-a,c)
+		if not visited[a+m][b][c-m]:
+			Q.append((a+m,b,c-m))
+			visited[a+m][b][c-m]=True
+	if c>0 and b<B: #C->B
+		m=min(B-b,c)
+		if not visited[a][b+m][c-m]:
+			Q.append((a,b+m,c-m))
+			visited[a][b+m][c-m]=True
+ans=list(ans)
+ans.sort()
+print(*ans)
+	
