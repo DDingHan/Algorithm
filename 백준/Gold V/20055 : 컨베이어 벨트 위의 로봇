@@ -1,0 +1,26 @@
+from collections import deque
+N,K=map(int,input().split())
+C=deque(list(map(int,input().split())))
+R=deque([False]*N) #컨테이너 위에 로봇이 있는가 확인
+stage=0
+while True:
+	#컨테이너 회전
+	C.rotate(1)
+	R.rotate(1)
+	#컨테이너 이동 후 내리는 위치 로봇 내리기
+	R[-1]=0
+	#맨 끝 로봇부터 이동
+	for i in range(N-2,-1,-1):
+		if R[i] and not R[i+1] and C[i+1]>0:
+			R[i]=False
+			C[i+1]-=1
+			if i+1!=N-1:	#내리는 위치로 이동 안한다면
+				R[i+1]=True
+	#처음위치 로봇 올리기
+	if C[0]>0:
+		C[0]-=1
+		R[0]=True
+	stage+=1
+	if C.count(0)>=K:
+		break
+print(stage)
