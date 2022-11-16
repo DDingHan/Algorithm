@@ -1,0 +1,37 @@
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+L,C,R=map(int,input().split())
+while (L,C,R)!=(0,0,0):
+	#빌딩 정보 입력
+	B=[]
+	for k in range(L):
+		A=[]
+		for i in range(C):
+			T=list(input().rstrip())
+			for j in range(R):
+				if T[j]=='S':
+					z,y,x=k,i,j
+			A.append(T)
+		empty=input()
+		B.append(A)
+		
+	visited=[[[False]*R for _ in range(C)] for _ in range(L)]
+	Q=deque([(z,y,x,0)])
+	visited[z][y][x]=True
+	while Q:
+		k,i,j,c=Q.popleft()
+		if B[k][i][j]=="E":
+			print("Escaped in %d minute(s)." %c)
+			break
+		#동,서,남,북,상,하
+		for dk,di,dj in [(0,0,1),(0,0,-1),(0,1,0),(0,-1,0),(1,0,0),(-1,0,0)]:
+			nk,ni,nj=k+dk,i+di,j+dj
+			if 0<=nk<L and 0<=ni<C and 0<=nj<R:
+				if B[nk][ni][nj]!='#' and not visited[nk][ni][nj]:
+					Q.append((nk,ni,nj,c+1))
+					visited[nk][ni][nj]=True
+	else:
+		print("Trapped!")
+	L,C,R=map(int,input().split())
