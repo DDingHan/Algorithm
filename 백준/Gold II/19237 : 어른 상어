@@ -1,0 +1,79 @@
+import sys
+input = sys.stdin.readline
+
+N,M,k=map(int,input().split())
+Sea=[]
+Sharks=[[] for _ in range(M+1)]
+Sharks_count=M
+time=0
+D=[[[]] for _ in range(M+1)]
+Di=(0,-1,1,0,0)
+Dj=(0,0,0,-1,1)
+for i in range(N):
+	temp=list(map(int,input().split()))
+	temp1=[]
+	for j in range(N):
+		if temp[j]!=0:
+			Sharks[temp[j]]=[i,j]
+		temp1.append([0,0])
+	Sea.append(temp1)
+for i,d in enumerate(list(map(int,input().split())),start=1):
+	Sharks[i].append(d)
+for i in range(1,M+1):
+	for _ in range(4):
+		temp=list(map(int,input().split()))
+		D[i].append(temp)
+#처음 냄새 뿌리기
+for s in range(1,M+1):
+	i,j,d=Sharks[s]
+	Sea[i][j]=[s,k]
+while Sharks_count>1:
+	#상어 이동
+	for s in range(1,M+1):
+		i,j,d=Sharks[s]
+		#쫓겨난 상어 처리 x
+		if i==-1 and j==-1:
+			continue
+		check_i,check_j=-1,-1
+		for nd in D[s][d]:
+			ni,nj=i+Di[nd],j+Dj[nd]
+			#이동가능 범위이며 냄새가 없는지 확인
+			if (0<=ni<N and 0<=nj<N) and Sea[ni][nj][1]==0:
+				check_i,check_j=ni,nj
+				break
+		#냄새가 없는 칸이 없다면 자기 냄새가 있는 곳으로 
+		if check_i==-1 and check_j==-1:
+			for nd in D[s][d]:
+				ni,nj=i+Di[nd],j+Dj[nd]
+				if (0<=ni<N and 0<=nj<N) and Sea[ni][nj][0]==s:
+					check_i,check_j=ni,nj
+					break
+		#이동할 수 있다면
+		if not (check_i==-1 and check_j==-1):
+			#이동 하는 곳에 더 낮은 상어가 있다면 쫓겨나기
+			if 0<Sea[check_i][check_j][0]<s:
+				Sharks[s]=[-1,-1,0]
+				Sharks_count-=1
+			else:
+				Sea[check_i][check_j][0]=s
+				Sharks[s]=[check_i,check_j,nd]
+	#냄새 지우기
+	for i in range(N):
+		for j in range(N):
+			if Sea[i][j][1]>0:
+				Sea[i][j][1]-=1
+				if Sea[i][j][1]==0:
+					Sea[i][j][0]=0
+	#냄새 뿌리기
+	for s in range(1,M+1):
+		i,j,d=Sharks[s]
+		#쫓겨난 상어 처리 x
+		if i==-1 and j==-1:
+			continue
+		Sea[i][j]=[s,k]
+		
+	time+=1
+	if time>1000:
+		time=-1
+		break
+print(time)
