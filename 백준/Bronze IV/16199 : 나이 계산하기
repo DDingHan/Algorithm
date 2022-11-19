@@ -1,0 +1,13 @@
+a,b,c=map(int,input().split())
+A,B,C=map(int,input().split())
+if b<B:
+    print(A-a)
+elif b==B:
+    if c<=C:
+        print(A-a)
+    else:
+        print(A-a-1)
+else:
+    print(A-a-1)
+print(A-a+1)
+print(A-a)
