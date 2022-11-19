@@ -1,0 +1,50 @@
+import sys
+import copy
+input = sys.stdin.readline
+
+#↑, ↖, ←, ↙, ↓, ↘, →, ↗
+Di=(-1,-1,0,1,1,1,0,-1)
+Dj=(0,-1,-1,-1,0,1,1,1)
+	
+def dfs(s_i,s_j,score,Sea):
+	global ans
+	score+=Sea[s_i][s_j][0]
+	ans=max(ans,score)
+	Sea[s_i][s_j][0]=0
+	
+	#1~16 물고기 이동
+	for f in range(1,17):
+		f_i,f_j=-1,-1
+		for i in range(4):
+			for j in range(4):
+				if Sea[i][j][0]==f:
+					f_i,f_j=i,j
+					break
+		if f_i==-1 and f_j==-1:
+			continue
+		fd=Sea[f_i][f_j][1]
+		for i in range(8):
+			nd=(fd+i)%8
+			ni,nj=f_i+Di[nd],f_j+Dj[nd]
+			#경계를 넘지 않고 빈칸이거나 물고기가 있는 경우
+			if not (0<=ni<4 and 0<=nj<4) or (ni==s_i and nj==s_j):
+				continue
+			Sea[f_i][f_j][1]=nd
+			Sea[f_i][f_j],Sea[ni][nj]=Sea[ni][nj],Sea[f_i][f_j]
+			break
+
+	#상어 이동
+	s_d=Sea[s_i][s_j][1]
+	for t in range(1,4):
+		ni,nj=s_i+Di[s_d]*t,s_j+Dj[s_d]*t
+		if (0<=ni<4 and 0<=nj<4) and Sea[ni][nj][0]>0:
+			dfs(ni,nj,score,copy.deepcopy(Sea))
+
+#입력
+Sea=[]
+for i in range(4):
+	a1,b1,a2,b2,a3,b3,a4,b4=map(int,input().split())
+	Sea.append([[a1,b1-1],[a2,b2-1],[a3,b3-1],[a4,b4-1]])
+ans=0
+dfs(0,0,0,Sea)
+print(ans)
