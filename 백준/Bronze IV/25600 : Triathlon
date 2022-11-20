@@ -1,0 +1,7 @@
+S=0
+for _ in range(int(input())):
+	a,d,g=map(int,input().split())
+	t=a*(d+g)
+	if a==(d+g):	t*=2
+	S=max(S,t)
+print(S)
