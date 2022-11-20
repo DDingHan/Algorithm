@@ -1,0 +1,8 @@
+for _ in range(int(input())):
+	L=[list(map(int,input().split())) for _ in range(int(input()))]
+	K,D,A=map(int,input().split())
+	s=0
+	for k,d,a in L:
+		T=K*k+A*a-D*d	
+		if T>=0:	s+=T
+	print(s)
