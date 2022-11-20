@@ -1,0 +1,5 @@
+a,b=map(int,input().split())
+for _ in range(int(input())):
+	c=int(input())
+	d=1000*a+(c-1000)*b if c>1000 else c*a
+	print(c,d)
