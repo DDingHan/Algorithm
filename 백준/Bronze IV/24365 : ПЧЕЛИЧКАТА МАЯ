@@ -1,0 +1,19 @@
+a,b,c=map(int,input().split())
+m=(a+b+c)//3
+ans=0
+if a<m:
+	t=min(m-a,b)
+	a+=t
+	b-=t
+	ans+=t
+	if a<m:
+		t=min(m-a,c)
+		a+=t
+		c-=t
+		ans+=t*2
+if b<m:
+	t=min(m-b,c)
+	b+=t
+	c-=t
+	ans+=t
+print(ans)
