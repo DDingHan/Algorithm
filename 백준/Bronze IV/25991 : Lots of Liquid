@@ -1,0 +1,7 @@
+from math import pow
+n=int(input())
+L=list(map(float,input().split()))
+S=0
+for i in L:
+	S+=pow(i,3)
+print(S**(1.0/3.0))
