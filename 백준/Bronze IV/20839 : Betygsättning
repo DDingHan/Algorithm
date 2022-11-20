@@ -1,0 +1,12 @@
+A,C,E=map(int,input().split())
+a,c,e=map(int,input().split())
+if e>=E and c>=C and a>=A:
+	print("A")
+elif e>=E and c>=C and a>=A/2:
+	print("B")
+elif e>=E and c>=C:
+	print("C")
+elif e>=E and c>=C/2:
+	print("D")
+elif e>=E:
+	print("E")
