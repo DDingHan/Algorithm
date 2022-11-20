@@ -1,0 +1,10 @@
+for _ in range(int(input())):
+	a=list(map(int,input().split()))
+	print(*a)
+	check=0
+	for i in a:
+		if i==17:
+			check+=1
+		elif i==18:
+			check+=2
+	print(['none','zack','mack','both'][check]+'\n')
