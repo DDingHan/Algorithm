@@ -1,0 +1,9 @@
+S=input()
+A=0
+B=0
+for i in range(0,len(S),2):
+	if S[i]=='A':
+		A+=int(S[i+1])
+	else:
+		B+=int(S[i+1])
+print("A" if A>B else "B")
