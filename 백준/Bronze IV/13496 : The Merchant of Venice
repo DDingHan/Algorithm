@@ -1,0 +1,10 @@
+for i in range(1,int(input())+1):
+	n,s,d=map(int,input().split())
+	ans=0
+	for _ in range(n):
+		a,b=map(int,input().split())
+		if s*d>=a:
+			ans+=b
+	print("Data Set %d:" %i)
+	print(ans)
+	print()
