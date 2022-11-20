@@ -1,0 +1,4 @@
+for _ in range(int(input())):
+	a=list(map(int,input().split()))
+	print(*a)
+	print(['zilch','double','double-double','triple-double'][sum(1 for x in a if x>=10)]+'\n')
