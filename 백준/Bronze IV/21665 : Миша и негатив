@@ -1,0 +1,11 @@
+N,M=map(int,input().split())
+A=[list(input()) for _ in range(N)]
+temp=input()
+B=[list(input()) for _ in range(N)]
+S=0
+for i in range(N):
+	for j in range(M):
+		if A[i][j]==B[i][j]:
+			S+=1
+print(S)
+	
