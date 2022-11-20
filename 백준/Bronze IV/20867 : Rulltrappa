@@ -1,0 +1,6 @@
+M,S,G=map(int,input().split())
+A,B=map(float,input().split())
+L,R=map(int,input().split())
+l=M//G+L//A
+r=M//S+R//B
+print("friskus" if l<r else "latmask")
