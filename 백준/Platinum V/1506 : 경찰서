@@ -1,0 +1,51 @@
+import collections
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
+
+N=int(input())
+cost=list(map(int,input().split()))
+graph=collections.defaultdict(list)
+ans=0
+
+for i in range(N):
+	temp=list(input())
+	for j in range(N):
+		if temp[j]=='1':
+			graph[i].append(j)
+d=[-1]*N
+stack=[]
+on_stack=[False]*N
+id=0
+
+def dfs(now):
+	global id,ans
+	id+=1
+	d[now]=id
+	stack.append(now)
+	on_stack[now]=True
+	
+	parent=d[now]
+	for nxt in graph[now]:
+		if d[nxt]==-1: 
+			parent = min(parent,dfs(nxt))
+		elif on_stack[nxt]:
+			parent = min(parent,d[nxt])
+			
+	if parent==d[now]:
+		c=1000001
+		scc=[]
+		while True:
+			node=stack.pop()
+			on_stack[node]=False
+			c=min(c,cost[node])
+			scc.append(node+1)
+			if now==node:
+				break
+		ans+=c
+	return parent
+
+for i in range(N):
+	if d[i]==-1:
+		dfs(i)
+print(ans)
