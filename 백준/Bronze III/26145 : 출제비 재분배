@@ -1,0 +1,12 @@
+import sys
+input = sys.stdin.readline
+n,m=map(int,input().split())
+money=list(map(int,input().split()))+[0]*m
+for i in range(n):
+	temp=list(map(int,input().split()))
+	for j in range(len(temp)):
+		if i==j:
+			continue
+		money[i]-=temp[j]
+		money[j]+=temp[j]
+print(" ".join(map(str,money)))
