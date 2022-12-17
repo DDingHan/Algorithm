@@ -1,0 +1,7 @@
+ans=0
+for i in range(1,4):
+	ans+=i*int(input())
+if ans>=10:
+	print("happy")
+else:
+	print("sad")
