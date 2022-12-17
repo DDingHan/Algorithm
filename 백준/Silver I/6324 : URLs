@@ -1,0 +1,23 @@
+import sys
+input = sys.stdin.readline
+
+for i in range(1,int(input())+1):
+	print("URL #%d" %i)
+	S=input().rstrip()
+	Protocol=S.split("://")[0]
+	S="://".join(S.split("://")[1:])
+	T=S.split('/')
+	P=T[0].split(":")
+	if len(P)>1:
+		Host,Port=P[0],P[1]
+	else:
+		Host,Port=P[0],"<default>"
+	if len(T)>1:
+		Path='/'.join(T[1:])
+	else:
+		Path="<default>"
+	print("Protocol = %s" %Protocol)
+	print("Host     = %s" %Host)
+	print("Port     = %s" %Port)
+	print("Path     = %s" %Path)
+	print()
