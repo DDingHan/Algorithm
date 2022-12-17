@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+
+T=int(input())
+for _ in range(T):
+	D=[list(map(int,input().split())) for _ in range(4)]
+	dis=[]
+	for i in range(3):
+		for j in range(i+1,4):
+			dis.append((D[i][0]-D[j][0])*(D[i][0]-D[j][0])+(D[i][1]-D[j][1])*(D[i][1]-D[j][1]))
+	dis.sort()
+	if dis[0]==dis[1] and dis[0]==dis[2] and dis[0]==dis[3] and dis[4]==dis[5]:
+		print(1)
+	else:
+		print(0)
