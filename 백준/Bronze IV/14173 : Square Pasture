@@ -1,0 +1,5 @@
+a,b,c,d=map(int,input().split())
+A,B,C,D=map(int,input().split())
+AA=max(a,c,A,C)-min(a,c,A,C)
+BB=max(b,d,B,D)-min(b,d,B,D)
+print(max(AA,BB)**2)
