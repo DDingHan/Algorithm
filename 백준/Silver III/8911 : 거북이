@@ -1,0 +1,26 @@
+import sys
+input = sys.stdin.readline
+
+Dx=(0,1,0,-1)
+Dy=(1,0,-1,0)
+T=int(input())
+for _ in range(T):
+	S=input()
+	x,y,d=0,0,0
+	max_x,max_y,min_x,min_y=0,0,0,0
+	for s in S:
+		if s=='F':
+			x+=Dx[d]
+			y+=Dy[d]
+		elif s=='B':
+			x-=Dx[d]
+			y-=Dy[d]
+		elif s=='L':
+			d=(d-1)%4
+		elif s=='R':
+			d=(d+1)%4
+		max_x=max(max_x,x)
+		min_x=min(min_x,x)
+		max_y=max(max_y,y)
+		min_y=min(min_y,y)
+	print((max_x-min_x)*(max_y-min_y))
