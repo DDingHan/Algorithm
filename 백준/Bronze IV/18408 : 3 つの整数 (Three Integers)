@@ -1,0 +1,4 @@
+l=list(input().split())
+a=l.count('1')
+b=l.count('2')
+print(1 if a>b else 2)
