@@ -1,0 +1,23 @@
+import sys
+input = sys.stdin.readline
+
+N,M=map(int,input().split())
+J=[int(input()) for _ in range(M)]
+J.sort(reverse=True)
+L,R=0,max(J)
+if R==1:
+	print(1)
+else:
+	while L<R:
+		m=(L+R)//2
+		total=0
+		for j in J:
+			total+=j//m
+			if j%m!=0:
+				total+=1
+			if total>N:
+				L=m+1
+				break    #불가능한 경우 L을 이동
+		else: #가능한 경우 R을 이동
+			R=m
+	print(L)
