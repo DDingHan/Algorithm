@@ -1,0 +1,5 @@
+L=[int(input()) for _ in range(4)]
+if L[0] in [8,9] and L[3] in [8,9] and L[1]==L[2]:
+	print("ignore")
+else:
+	print("answer")
