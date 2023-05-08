@@ -1,0 +1,12 @@
+N=input()
+while N!="0":
+	S=2+len(N)-1
+	for i in range(len(N)):
+		if N[i]=="1":
+			S+=2
+		elif N[i]=="0":
+			S+=4
+		else:
+			S+=3
+	print(S)
+	N=input()
